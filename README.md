@@ -238,5 +238,13 @@ npm -v
 
 # 3. Check if npx is in PATH
 Get-Command npx
-```
 If any of these fail, you must install **Node.js LTS** from [nodejs.org](https://nodejs.org).
+
+<br>
+
+---
+
+## 🗑️ Uninstallation
+
+If you need to remove `mcpv` and restore your original configuration, please refer to the [Uninstall Guide](UNINSTALL_KR.md).
+
