@@ -1,4 +1,4 @@
-﻿import json
+import json
 import sys
 import shutil
 import os
@@ -287,4 +287,39 @@ exit
     async def cleanup(self):
         await self.stack.aclose()
 
-manager = VaultManager()
+    def update_config(self, server_name: str, key: str, value: bool) -> bool:
+        """Updates a specific boolean key in the mcp_config.original.json (BACKUP_FILE)."""
+        if not BACKUP_FILE.exists(): return False
+        try:
+            with open(BACKUP_FILE, "r", encoding="utf-8") as f: config = json.load(f)
+            if server_name not in config.get("mcpServers", {}): return False
+            
+            config["mcpServers"][server_name][key] = value
+            
+            with open(BACKUP_FILE, "w", encoding="utf-8") as f:
+                json.dump(config, f, indent=2)
+            return True
+        except: return False
+
+    def update_disabled_tools(self, server_name: str, tool_name: str, disabled: bool) -> bool:
+        """Updates the disabledTools list for a specific server."""
+        if not BACKUP_FILE.exists(): return False
+        try:
+            with open(BACKUP_FILE, "r", encoding="utf-8") as f: config = json.load(f)
+            srv = config.get("mcpServers", {}).get(server_name)
+            if not srv: return False
+            
+            disabled_list = srv.get("disabledTools", [])
+            if disabled:
+                if tool_name not in disabled_list: disabled_list.append(tool_name)
+            else:
+                disabled_list = [t for t in disabled_list if t != tool_name]
+            
+            srv["disabledTools"] = disabled_list
+            
+            with open(BACKUP_FILE, "w", encoding="utf-8") as f:
+                json.dump(config, f, indent=2)
+            return True
+        except: return False
+
+manager = VaultManager()

@@ -29,12 +29,21 @@ mcp = FastMCP("mcpv")
 # === 🌟 [핵심 1] 글로벌 툴 레지스트리 (지도) ===
 # 구조: { "tool_name": { "server": "server_name", "desc": "description...", "args": "arg1, arg2" } }
 TOOL_REGISTRY = {}
+TOOL_INDEX_FILE = CONFIG_DIR / "tool_index.json"
 
 async def _build_registry():
-    """모든 업스트림 서버를 스캔하여 도구 지도를 만듭니다."""
+    """Builds tool map by scanning upstream servers. Uses local cache if available."""
     global TOOL_REGISTRY
     from .vault import BACKUP_FILE
     
+    # 1. 시도: 로컬 캐시 먼저 읽기
+    if not TOOL_REGISTRY and TOOL_INDEX_FILE.exists():
+        try:
+            with open(TOOL_INDEX_FILE, "r", encoding="utf-8") as f:
+                TOOL_REGISTRY = json.load(f)
+                logger.info("⚡ Tool Registry loaded from local cache.")
+        except: pass
+
     if not BACKUP_FILE.exists(): return
     
     with open(BACKUP_FILE, "r", encoding="utf-8") as f:
@@ -51,34 +60,36 @@ async def _build_registry():
     for name, session in zip(active_servers, sessions):
         if not session or isinstance(session, Exception): continue
         try:
-            # 타임아웃을 두고 도구 목록 획득
             tools = await asyncio.wait_for(session.list_tools(), timeout=3.0)
             for t in tools.tools:
-                # 툴 이름 충돌 방지: 만약 이미 있으면 'server_toolname'으로 등록
                 key = t.name
                 if key in new_registry:
-                    key = f"{name}_{t.name}" # 충돌 시 접두사 붙임
+                    key = f"{name}_{t.name}"
                 
                 args = list(t.inputSchema.get("properties", {}).keys())
                 new_registry[key] = {
                     "server": name,
-                    "real_name": t.name, # 실제 호출할 이름
-                    "desc": t.description[:100] if t.description else "No description",
+                    "real_name": t.name,
+                    "desc": t.description[:150] if t.description else "No description",
                     "args": ", ".join(args)
                 }
-        except:
-            continue
+        except: continue
             
-    TOOL_REGISTRY = new_registry
-    logger.info(f"🗺️ Tool Registry Built: {len(TOOL_REGISTRY)} tools found.")
+    if new_registry:
+        TOOL_REGISTRY = new_registry
+        # 로컬 파일에 캐시 저장
+        try:
+            with open(TOOL_INDEX_FILE, "w", encoding="utf-8") as f:
+                json.dump(TOOL_REGISTRY, f, indent=2)
+        except: pass
+        logger.info(f"🗺️ Tool Registry Rebuilt and Cached: {len(TOOL_REGISTRY)} tools found.")
 
-# === 🌟 [핵심 2] 스마트 컨텍스트 주입 ===
+# === 🌟 [핵심 2] 스마트 컨텍스트 주입 (압축 모드) ===
 @mcp.tool()
 async def get_initial_context(force: bool = False) -> str:
     """
     [System Start] Initializes the session.
-    Returns a 'Tool Manual' so you know what tools are available.
-    Does NOT return full code context to save tokens (use 'read_file' if needed).
+    Returns a summary of available tools to save tokens and prevent truncation.
     """
     # 1. 밸브 체크
     allowed, msg = valve.check(force)
@@ -90,26 +101,89 @@ async def get_initial_context(force: bool = False) -> str:
     if not TOOL_REGISTRY:
         return "⚠️ No tools found in connected MCP servers."
 
-    # 3. 메뉴판(Manual) 생성
+    # 3. 서버별 도구 목록 요약 (이름만)
+    servers = {}
+    for t_name, info in TOOL_REGISTRY.items():
+        srv = info['server']
+        if srv not in servers: servers[srv] = []
+        servers[srv].append(t_name)
+    
     manual = [
-        "=== 🎮 MCPV SMART CONSOLE ===",
-        "You have access to the following tools. DO NOT use 'use_upstream_tool'.",
-        "JUST use 'run_tool(name=...)' directly.\n",
-        "--- Available Tools ---"
+        "=== 🎮 MCPV SMART CONSOLE (Vault v0.3) ===",
+        "Performance optimization: compact tool names are listed. Use 'list_server_tools' for full schema.",
+        f"Detected {len(servers)} active servers and {len(TOOL_REGISTRY)} total tools.\n",
+        "--- Quick Search ---"
     ]
     
-    # 툴 목록을 예쁘게 정리
-    for tool_name, info in TOOL_REGISTRY.items():
-        manual.append(f"🔹 {tool_name}")
-        manual.append(f"   └─ Args: {info['args']}")
-        manual.append(f"   └─ Desc: {info['desc']}")
+    for srv, tools in servers.items():
+        tool_fmt = ", ".join(tools[:20]) # 최대 20개까지만 예시로 노출
+        if len(tools) > 20: tool_fmt += "..."
+        manual.append(f"📦 {srv} ({len(tools)}): {tool_fmt}")
     
-    manual.append("\n=== [Instruction] ===")
-    manual.append("To execute any tool above, use:")
-    manual.append("run_tool(tool_name='TOOL_NAME', args={...})")
-    manual.append("Example: run_tool(tool_name='query-docs', args={'query': 'nextjs'})")
+    manual.append("\n=== [Usage Instructions] ===")
+    manual.append("- VIEW FULL SCHEMA: call 'list_server_tools(server_name=\"...\")'")
+    manual.append("- RUN A TOOL      : call 'run_tool(tool_name=\"...\", args={...})'")
+    manual.append("\nTip: Just use the tool name in 'run_tool'. Arguments can be guessed or seen in full schema.")
     
     return "\n".join(manual)
+
+# === 🌟 [Admin Console] (Unified Management) ===
+
+@mcp.tool()
+async def mcpv_admin(action: str, params: dict = {}) -> str:
+    """
+    Unified administration console for MCP Vault.
+    Actions: 
+    - list_servers: List all upstream servers and status.
+    - list_tools: Show detailed tools for a server (params: {'server_name': '...'}).
+    - search: Search tools by keyword (params: {'query': '...'}).
+    - toggle_server: Enable/disable server (params: {'server_name': '...', 'enabled': bool}).
+    - toggle_tool: Enable/disable tool (params: {'server_name': '...', 'tool_name': '...', 'enabled': bool}).
+    """
+    if action == "list_servers":
+        from .vault import BACKUP_FILE
+        if not BACKUP_FILE.exists(): return "❌ Vault backup not found."
+        with open(BACKUP_FILE, "r", encoding="utf-8") as f: config = json.load(f)
+        servers = config.get("mcpServers", {})
+        output = ["=== 🛰️ UPSTREAM SERVERS ==="]
+        for name, srv in servers.items():
+            status = "🔴 DISABLED" if srv.get("disabled") else "🟢 ACTIVE"
+            output.append(f"- {name:20} | {status}")
+        return "\n".join(output)
+
+    elif action == "list_tools":
+        server_name = params.get("server_name")
+        if not server_name: return "❌ Missing param 'server_name'."
+        if not TOOL_REGISTRY: await _build_registry()
+        relevant = {k: v for k, v in TOOL_REGISTRY.items() if v['server'] == server_name}
+        if not relevant: return f"⚠️ No active tools for '{server_name}'."
+        output = [f"=== 🛠️ TOOLS for '{server_name}' ==="]
+        for name, info in relevant.items():
+            output.append(f"🔹 {name}\n   └─ Args: {info['args']}\n   └─ Desc: {info['desc']}\n")
+        return "\n".join(output)
+
+    elif action == "search":
+        query = params.get("query", "").lower()
+        if not query: return "❌ Missing param 'query'."
+        if not TOOL_REGISTRY: await _build_registry()
+        matches = [f"🔍 {name} ({info['server']})\n   └─ Desc: {info['desc']}" 
+                   for name, info in TOOL_REGISTRY.items() 
+                   if query in name.lower() or query in info['desc'].lower()]
+        return "=== 🔎 SEARCH RESULTS ===\n" + "\n\n".join(matches) if matches else "❌ No matches."
+
+    elif action == "toggle_server":
+        server_name, enabled = params.get("server_name"), params.get("enabled", True)
+        if not server_name: return "❌ Missing param 'server_name'."
+        success = manager.update_config(server_name, "disabled", not enabled)
+        return f"✅ Server '{server_name}' is now {'ENABLED' if enabled else 'DISABLED'}." if success else "❌ Update failed."
+
+    elif action == "toggle_tool":
+        server_name, tool_name, enabled = params.get("server_name"), params.get("tool_name"), params.get("enabled", True)
+        if not (server_name and tool_name): return "❌ Missing params."
+        success = manager.update_disabled_tools(server_name, tool_name, not enabled)
+        return f"✅ Tool '{tool_name}' on '{server_name}' is now {'ENABLED' if enabled else 'DISABLED'}." if success else "❌ Update failed."
+
+    return "❌ Invalid action. Available: list_servers, list_tools, search, toggle_server, toggle_tool"
 
 # === 🌟 [핵심 3] 통합 실행 도구 (Flattened Execution) ===
 # === 🌟 [업그레이드] 스마트 실행 도구 (Auto-Correction 탑재) ===
@@ -207,3 +281,11 @@ def list_directory(path: str = ".") -> str:
                 if not e.name.startswith("."): out.append(e.name)
         return "\n".join(out)
     except Exception as e: return str(e)
+
+# JIT Initialized on first call.
+# @mcp.on_startup()
+async def on_startup():
+    """Warms up the registry in the background when the server starts."""
+    logger.info("🚀 [MCPV] Starting background registry warmup...")
+    # 비동기로 빌드 진행 (이전 캐시 로드 포함)
+    asyncio.create_task(_build_registry())
