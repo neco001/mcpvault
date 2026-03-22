@@ -1,4 +1,4 @@
-﻿# ⚡ MCP Vault (`mcpv`)
+# ⚡ MCP Vault (`mcpv`)
 
 > **The Ultimate Performance Booster for AI Agents**  
 > _"Reduce system lag by 99%, eliminate loading times, and cut token costs by 90%."_
@@ -40,8 +40,9 @@ Have you ever felt this while using AI Agents (Antigravity, Cursor)?
 | Feature | 😫 Without `mcpv` (Before) | ⚡ With `mcpv` (After) | 📈 Effect |
 | :--- | :--- | :--- | :--- |
 | **Speed** | No GPU, Laggy UI | **Forced GPU Acceleration, Smooth** | **100x** Perceived Speed |
-| **Loading** | Wait 60s+ every time | **0.1s Instant Start** (Lazy Load) | **Zero** Latency |
-| **Cost** | Resend full code every time | **Auto-block Duplicates** (Smart Cache) | **90%** Savings |
+| **Scalability** | Truncates at 100 tools | **Unlimited Tools (Summary + JIT)** | **∞** Capacity |
+| **Loading** | Wait 60s+ every time | **Instant Startup (Local Cache)** | **Zero** Latency |
+| **Cost** | Resend full context | **Smart Block / Deduplication** | **90%** Savings |
 
 <br>
 
@@ -68,11 +69,18 @@ Have you ever felt this while using AI Agents (Antigravity, Cursor)?
 - Automatically migrates existing complex MCP settings to a secure Vault.
 - Original config is safely backed up to `mcp_config.original.json`.
 
-### 4️⃣ Smart Router (Flattened Execution)
+### 4️⃣ Smart Router (Architectural Breakthrough)
 **"One Tool to Rule Them All"**
+- **Anti-Truncation Engine**: Solves the "100-tool limit" of AI providers. Provides a compact summary of all tools, effectively supporting hundreds of upstream tools without overflowing the context.
 - **Unified Interface**: The agent doesn't need to know which server has which tool. It just calls `run_tool(name="...")`.
-- **Auto-Correction**: Did the agent make a typo? Did it try to call a server name? `mcpv` automatically finds the correct tool or suggests the right name.
-- **Zero-Latency Startup**: Only connects to upstream servers when their tools are actually needed.
+- **Persistent Indexing**: Remembers tool metadata in a local `tool_index.json` for lightning-fast discovery and offline capability.
+- **Auto-Correction**: Automatically finds the correct tool even if the agent makes a typo or tries to call a server name.
+
+### 5️⃣ Admin Console (Control Center)
+**"Surgical Control Over Your Context"**
+- **`mcpv_admin`**: A single tool to manage your entire MCP ecosystem.
+- **Live Search**: Find any tool by searching through descriptions across all servers.
+- **Dynamic Optimization**: Enable/disable servers or specific tools on-the-fly to prune the agent's context and save tokens.
 
 <br>
 
