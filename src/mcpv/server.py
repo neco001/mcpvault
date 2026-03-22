@@ -109,19 +109,25 @@ async def get_initial_context(force: bool = False) -> str:
         servers[srv].append(t_name)
     
     manual = [
-        "=== 🎮 MCPV SMART CONSOLE (Vault v0.3) ===",
-        "Performance optimization: compact tool names are listed. Use 'list_server_tools' for full schema.",
+        "=== 🎮 MCPV SMART CONSOLE (Vault v0.4) ===",
+        "Performance optimization: compact tool names are listed. Use 'mcpv_admin' for details.",
         f"Detected {len(servers)} active servers and {len(TOOL_REGISTRY)} total tools.\n",
-        "--- Quick Search ---"
+        "--- Quick Search (Vaulted Tools) ---"
     ]
     
     for srv, tools in servers.items():
-        tool_fmt = ", ".join(tools[:20]) # 최대 20개까지만 예시로 노출
+        # Add 'vault:' prefix to indicate these are NOT direct functions
+        prefixed_tools = [f"vault:{t}" for t in tools[:20]]
+        tool_fmt = ", ".join(prefixed_tools)
         if len(tools) > 20: tool_fmt += "..."
         manual.append(f"📦 {srv} ({len(tools)}): {tool_fmt}")
     
-    manual.append("\n=== [Usage Instructions] ===")
-    manual.append("- VIEW FULL SCHEMA: call 'list_server_tools(server_name=\"...\")'")
+    manual.append("\n=== [🚀 CRITICAL: Access Modes] ===")
+    manual.append("1. DIRECT TOOLS (e.g., mcp_exa_*): Call these directly as functions.")
+    manual.append("2. VAULTED TOOLS (marked 'vault:...'): You MUST use the mcp_mcp-vault_run_tool proxy.")
+    manual.append("   - Example: call run_tool(tool_name='brave_web_search', args={...})")
+    manual.append("   - DO NOT call vaulted names directly.")
+    manual.append("\n- VIEW FULL SCHEMA: call 'mcp_mcp-vault_mcpv_admin(action=\"list_tools\", params={\"server_name\": \"...\"})'")
     manual.append("- RUN A TOOL      : call 'run_tool(tool_name=\"...\", args={...})'")
     manual.append("\nTip: Just use the tool name in 'run_tool'. Arguments can be guessed or seen in full schema.")
     
@@ -196,11 +202,23 @@ async def run_tool(tool_name: str, args: dict = {}) -> str:
     # 1. 레지스트리 로드 (없으면 빌드)
     if not TOOL_REGISTRY:
         await _build_registry()
+
+    # 2. [FIX] Normalization & Prefix Removal
+    # Handle 'vault:' prefix or 'mcp_' prefix hallucinations
+    target_name = tool_name
+    if target_name.startswith("vault:"):
+        target_name = target_name[6:]
+    elif target_name.startswith("mcp_"):
+        # Attempt to find the tool name even if the model tries to call it like a direct tool
+        for reg_name in TOOL_REGISTRY.keys():
+            if target_name.endswith(reg_name):
+                target_name = reg_name
+                break
         
-    # 2. 정확한 매칭 (Happy Path)
-    info = TOOL_REGISTRY.get(tool_name)
+    # 3. 정확한 매칭 (Happy Path)
+    info = TOOL_REGISTRY.get(target_name)
     
-    # 3. [NEW] 매칭 실패 시: 에이전트 실수 교정 로직
+    # 4. [NEW] 매칭 실패 시: 에이전트 실수 교정 로직
     if not info:
         # A. 혹시 서버 이름을 도구 이름으로 착각했나? (예: context-7 -> context7)
         # 툴 레지스트리에서 서버 목록 추출
