@@ -1,13 +1,13 @@
 # ⚡ MCP Vault (`mcpv`)
 
-> **The Ultimate Performance Booster for AI Agents**  
+> **The Ultimate Performance Booster for AI Agents**
 > _"Reduce system lag by 99%, eliminate loading times, and cut token costs by 90%."_
 
 <div align="center">
 
 ![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.10+-F7CA3F.svg?style=flat-square&logo=python&logoColor=black)
-![Platform](https://img.shields.io/badge/OS-Windows-0078D6.svg?style=flat-square&logo=windows&logoColor=white)
+![Platforms](https://img.shields.io/badge/OS-Windows%20%7C%20macOS%20%7C%20Linux-blue.svg?style=flat-square)
 ![Status](https://img.shields.io/badge/Status-Accelerated-brightgreen.svg?style=flat-square)
 
 </div>
@@ -18,9 +18,9 @@
 
 <br>
 
-> [!CAUTION]
-> **⚠️ Compatibility Warning**<br>
-> Currently, this project ONLY supports **Windows** OS and the **Antigravity** agent environment.
+> [!NOTE]
+> **✅ Cross-Platform Support**<br>
+> MCP Vault now supports **Windows**, **macOS**, and **Linux** with the Antigravity agent environment.
 
 <br>
 
@@ -88,7 +88,9 @@ Have you ever felt this while using AI Agents (Antigravity, Cursor)?
 
 ## 📦 Installation
 
-This project is optimized for **Windows**. We recommend using `uv` for a fast and clean installation.
+We recommend using `uv` for a fast and clean installation across all platforms.
+
+### Windows (PowerShell)
 
 ```powershell
 # Install using uv (Recommended)
@@ -96,13 +98,48 @@ uv pip install . --system
 
 # OR using standard pip
 pip install .
-```
 
-After installing the package, **you must run the install command** to configure the vault:
-
-```powershell
+# Configure the vault
 mcpv install
 ```
+
+### macOS / Linux (Bash)
+
+```bash
+# Install using uv (Recommended)
+uv pip install . --system
+
+# OR using standard pip
+pip install .
+
+# Configure the vault
+python -m mcpv install
+```
+
+### Quick Start Scripts
+
+| Platform | Init | Uninstall | Reinstall |
+|----------|------|-----------|-----------|
+| Windows | `init.ps1` | `uninstall.ps1` | `reinstall.ps1` |
+| macOS/Linux | `scripts/init.sh` | `scripts/uninstall.sh` | `scripts/reinstall.sh` |
+
+<br>
+
+---
+
+## 🖥️ Platform Support
+
+| Platform | Status | Notes |
+|----------|--------|-------|
+| **Windows** | ✅ Full | Native PowerShell scripts, OneDrive Desktop support |
+| **macOS** | ✅ Full | Bash scripts, ~/Library paths, .command launchers |
+| **Linux** | ✅ Full | Bash scripts, XDG directories, .desktop files |
+
+### Platform-Specific Features
+
+- **Windows**: OneDrive Desktop redirect detection, PowerShell-based shortcuts (.lnk)
+- **macOS**: Applications folder integration, .command file launchers
+- **Linux**: XDG Desktop specification, .desktop file integration
 
 <br>
 

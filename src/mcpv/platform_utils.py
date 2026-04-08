@@ -70,7 +70,10 @@ def _get_windows_desktop() -> Path:
         pass
     
     # Fallback to default Desktop location
-    return Path(os.environ["USERPROFILE"]) / "Desktop"
+    userprofile = os.environ.get("USERPROFILE")
+    if userprofile:
+        return Path(userprofile) / "Desktop"
+    return Path.home() / "Desktop"
 
 
 def _get_linux_desktop() -> Path:
@@ -170,12 +173,32 @@ def _create_windows_shortcut(
     # Build PowerShell command
     window_style = 7 if hidden_window else 1  # 7 = Minimized, 1 = Normal
     
-    # Escape quotes in paths for PowerShell
-    target_escaped = target.replace('"', '`"')
-    icon_escaped = (icon or "").replace('"', '`"')
-    link_path_escaped = str(link_path).replace('"', '`"')
+    def escape_ps_string(s: str) -> str:
+        """Escape string for safe PowerShell double-quoted string."""
+        if not s:
+            return ""
+        # Order matters: backtick first, then special chars
+        replacements = [
+            ('`', '``'), ('"', '`"'), ('$', '`$'),
+            ('(', '`('), (')', '`)'), ('[', '`['), (']', '`]'),
+            ('{', '`{'), ('}', '`}'), ('|', '`|'), ('&', '`&'),
+            (';', '`;'), ('<', '`<'), ('>', '`>'), ('\n', '`n'),
+            ('\r', '`r'), ('\t', '`t')
+        ]
+        for old, new in replacements:
+            s = s.replace(old, new)
+        return s
     
-    args_part = f'; $s.Arguments = "/c ""{target_escaped}"""' if arguments is None else f'; $s.Arguments = "{arguments}"'
+    target_escaped = escape_ps_string(target)
+    icon_escaped = escape_ps_string(icon or "")
+    link_path_escaped = escape_ps_string(str(link_path))
+    
+    if arguments:
+        args_escaped = escape_ps_string(arguments)
+        args_part = f'; $s.Arguments = "{args_escaped}"'
+    else:
+        args_part = ""
+    
     icon_part = f'; $s.IconLocation = "{icon_escaped},0"' if icon else ""
     
     ps_command = (
@@ -272,16 +295,35 @@ def _create_linux_desktop_file(
     desktop_dir.mkdir(parents=True, exist_ok=True)
     desktop_path = desktop_dir / f"{name}.desktop"
     
+    def escape_desktop_value(s: str) -> str:
+        """Escape value for .desktop file per XDG spec."""
+        if not s:
+            return ""
+        # Escape special characters for Exec key per XDG Desktop Entry spec
+        s = s.replace('\\', '\\\\')
+        s = s.replace('"', '\\"')
+        s = s.replace('`', '\\`')
+        s = s.replace('$', '\\$')
+        s = s.replace('\n', '\\n')
+        s = s.replace('\r', '\\r')
+        s = s.replace('\t', '\\t')
+        return s
+    
+    name_escaped = escape_desktop_value(name)
+    target_escaped = escape_desktop_value(target)
+    args_escaped = escape_desktop_value(arguments or "")
+    icon_escaped = escape_desktop_value(icon or "")
+    
     # Build .desktop file content
     desktop_content = f"""[Desktop Entry]
 Version=1.0
 Type=Application
-Name={name}
-Exec={target} {arguments or ""}
+Name={name_escaped}
+Exec={target_escaped} {args_escaped}
 """
     
     if icon:
-        desktop_content += f"Icon={icon}\n"
+        desktop_content += f"Icon={icon_escaped}\n"
     
     if hidden_window:
         desktop_content += "StartupNotify=false\n"
