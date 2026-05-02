@@ -171,18 +171,10 @@ class TestStartupInitialization:
             with patch('builtins.open', mock_open(read_data=json.dumps(mock_config))):
                 with patch('mcpv.server.manager.get_session', mock_get_session):
                     # server_lifespan is an async context manager that initializes registry
-                    lifespan_gen = server_lifespan()
-                    await lifespan_gen.__anext__()  # Run startup phase
-                    
-                    # Registry should be initialized (affect module-level attributes)
-                    assert mcpv.server._registry_initialized, "Registry not initialized after startup"
-                    assert len(mcpv.server.TOOL_REGISTRY) > 0, "Registry empty after startup"
-                    
-                    # Clean up
-                    try:
-                        await lifespan_gen.__anext__()
-                    except StopAsyncIteration:
-                        pass
+                    async with server_lifespan(MagicMock()):
+                        # Registry should be initialized (affect module-level attributes)
+                        assert mcpv.server._registry_initialized, "Registry not initialized after startup"
+                        assert len(mcpv.server.TOOL_REGISTRY) > 0, "Registry empty after startup"
 
     @pytest.mark.asyncio
     async def test_startup_failure_does_not_crash_server(self):
@@ -221,22 +213,11 @@ class TestStartupInitialization:
         with patch('mcpv.vault.BACKUP_FILE', MagicMock(exists=MagicMock(return_value=True))):
             with patch('builtins.open', mock_open(read_data=json.dumps(mock_config))):
                 with patch('mcpv.server.manager.get_session', mock_get_session):
-                    # Should not raise exception
-                    lifespan_gen = server_lifespan()
-                    try:
-                        await lifespan_gen.__anext__()  # Run startup phase
-                    except Exception:
-                        pass  # Expected - bad server fails
-                    
-                    # Good server's tool should be in registry (check module-level)
-                    assert "good_tool" in mcpv.server.TOOL_REGISTRY, \
-                        "Good server's tool missing - startup crashed on bad server"
-                    
-                    # Clean up
-                    try:
-                        await lifespan_gen.__anext__()
-                    except StopAsyncIteration:
-                        pass
+                    # Should not raise exception - use async with for proper context manager usage
+                    async with server_lifespan(MagicMock()):
+                        # Good server's tool should be in registry (check module-level)
+                        assert "good_tool" in mcpv.server.TOOL_REGISTRY, \
+                            "Good server's tool missing - startup crashed on bad server"
 
 
 class TestGetInitialContextCompactMode:
@@ -249,6 +230,7 @@ class TestGetInitialContextCompactMode:
         
         Expected: Default call should return compact summary (not full details).
         """
+        import mcpv.server
         from mcpv.server import get_initial_context, TOOL_REGISTRY
         
         TOOL_REGISTRY.clear()
@@ -256,7 +238,15 @@ class TestGetInitialContextCompactMode:
         TOOL_REGISTRY["tool2"] = {"server": "server1", "desc": "Tool 2 description"}
         TOOL_REGISTRY["tool3"] = {"server": "server2", "desc": "Tool 3 description"}
         
-        result = await get_initial_context(force=False, detailed=False)
+        # Set _registry_initialized = True so _build_registry() takes fast path
+        # and doesn't try to contact real servers
+        original_initialized = mcpv.server._registry_initialized
+        mcpv.server._registry_initialized = True
+        
+        try:
+            result = await get_initial_context(force=False, detailed=False)
+        finally:
+            mcpv.server._registry_initialized = original_initialized
         
         # Should be compact - not contain full descriptions or tool listings
         assert "server1: 2 tools" in result or "server1" in result, \

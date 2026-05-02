@@ -21,6 +21,16 @@
 
 ## Pending
 
+- [x] acade Assembly & Compatibility Verification - a505fa0b-269a-43cb-be8a-4c8dc68f3479
+
+- [x] mart Routing & File Utilities extraction - 1121d0ef-9b24-42df-b78e-50a05f310dec
+
+- [x] ontext Builders & Admin Dispatch extraction - dc83928b-0e46-469b-8997-6e34ebfa6b08
+
+- [x] egistry Encapsulation - ToolRegistry class - 6777990b-f74f-4c6d-bfeb-70222711bfaa
+
+- [x] aseline Modernization & Constants Extraction - f78b320c-9321-4148-b98a-f06af3006d8d
+
 
 - [x] ncomment @mcp.on_startup() decorator and implement eager registry initialization - d4c5603e-250f-4540-beb4-4cca077354c2
 - [x] dd instructions parameter to FastMCP constructor for automatic agent onboarding - 3d718e0d-480c-4124-9ad5-e65140718e7e
