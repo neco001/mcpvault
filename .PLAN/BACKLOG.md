@@ -18,3 +18,12 @@
 - [x] Audit Fix: Fix race condition in vault.py get_session() with asyncio.Lock - 8ca1ce87-8404-466a-80ff-fb781bf499f5
 - [x] Audit Fix: Fix AsyncExitStack resource management in vault.py - 6b99d42b-05ea-4628-8430-d655b2a6c6a8
 - [x] Audit Fix: Add shell command validation in platform_abstraction.py run_shell_command() - d30e515b-8990-48a5-b413-6719256ae1e7
+
+## Pending
+
+
+- [x] ncomment @mcp.on_startup() decorator and implement eager registry initialization - d4c5603e-250f-4540-beb4-4cca077354c2
+- [x] dd instructions parameter to FastMCP constructor for automatic agent onboarding - 3d718e0d-480c-4124-9ad5-e65140718e7e
+- [x] ptimize get_initial_context() to return compact summary by default - cc2554f5-5415-4a32-b8ab-dbcb8330f6f4
+- [x] dd readiness state check for tool routing - f525e4d6-80fc-4827-90b4-253bd085c41f
+- [x] est and validate auto-initialization implementation - 741eb166-a7c6-4e43-9d91-8d5d18cfa001

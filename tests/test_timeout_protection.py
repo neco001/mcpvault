@@ -35,7 +35,7 @@ class TestBuildRegistryTimeout:
             await asyncio.sleep(9999)
             return None
         
-        with patch('mcpv.server.BACKUP_FILE', MagicMock(exists=MagicMock(return_value=True))):
+        with patch('mcpv.vault.BACKUP_FILE', MagicMock(exists=MagicMock(return_value=True))):
             with patch('builtins.open', mock_open(read_data=json.dumps(mock_config))):
                 with patch('mcpv.server.manager.get_session', hanging_get_session):
                     # This should NOT hang - should timeout and return
@@ -75,16 +75,14 @@ class TestBuildRegistryTimeout:
                 raise asyncio.TimeoutError("Connection timed out")
             else:
                 session = MagicMock()
-                session.list_tools = AsyncMock(return_value=MagicMock(
-                    tools=[MagicMock(
-                        name="test_tool",
-                        description="Test tool",
-                        inputSchema={"properties": {"arg1": {}}}
-                    )]
-                ))
+                mock_tool = MagicMock()
+                mock_tool.name = "test_tool"
+                mock_tool.description = "Test tool"
+                mock_tool.inputSchema = {"properties": {"arg1": {}}}
+                session.list_tools = AsyncMock(return_value=MagicMock(tools=[mock_tool]))
                 return session
         
-        with patch('mcpv.server.BACKUP_FILE', MagicMock(exists=MagicMock(return_value=True))):
+        with patch('mcpv.vault.BACKUP_FILE', MagicMock(exists=MagicMock(return_value=True))):
             with patch('builtins.open', mock_open(read_data=json.dumps(mock_config))):
                 with patch('mcpv.server.manager.get_session', mock_get_session):
                     await _build_registry()
@@ -192,15 +190,16 @@ class TestExceptionLogging:
         
         TOOL_REGISTRY.clear()
         
-        # Corrupted cache file
-        with patch('mcpv.server.TOOL_INDEX_FILE', MagicMock(exists=MagicMock(return_value=True))):
-            with patch('builtins.open', mock_open(read_data="invalid json {{{")):
-                with patch.object(logger, 'warning') as mock_warning:
-                    await _build_registry()
-                    
-                    # Should have logged the JSON error, not silently passed
-                    # This will fail if bare except: pass is still there
-                    assert mock_warning.called or True  # Will fail once fix is applied
+        # Mock both BACKUP_FILE and TOOL_INDEX_FILE
+        with patch('mcpv.vault.BACKUP_FILE', MagicMock(exists=MagicMock(return_value=False))):
+            with patch('mcpv.server.TOOL_INDEX_FILE', MagicMock(exists=MagicMock(return_value=True))):
+                with patch('builtins.open', mock_open(read_data="invalid json {{{")):
+                    with patch.object(logger, 'warning') as mock_warning:
+                        await _build_registry()
+                        
+                        # Should have logged the JSON error, not silently passed
+                        # The implementation already properly logs this
+                        assert mock_warning.called
 
     @pytest.mark.asyncio  
     async def test_bare_except_continue_replaced_with_logging(self):
@@ -223,7 +222,7 @@ class TestExceptionLogging:
         async def mock_get_session(name):
             return mock_session
         
-        with patch('mcpv.server.BACKUP_FILE', MagicMock(exists=MagicMock(return_value=True))):
+        with patch('mcpv.vault.BACKUP_FILE', MagicMock(exists=MagicMock(return_value=True))):
             with patch('builtins.open', mock_open(read_data=json.dumps(mock_config))):
                 with patch('mcpv.server.manager.get_session', mock_get_session):
                     with patch.object(logger, 'warning') as mock_warning:

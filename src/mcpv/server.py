@@ -1,4 +1,5 @@
 import os
+from contextlib import asynccontextmanager
 import asyncio
 import logging
 import json
@@ -25,93 +26,151 @@ if ROOT_PATH_FILE.exists():
     except: pass
 ROOT_DIR = Path.cwd().resolve()
 
-mcp = FastMCP("mcpv")
-
 # === Timeout Constants (REQ-01, REQ-02) ===
 GATHER_TIMEOUT = 30.0  # Overall timeout for connecting to all servers
 TOOL_LIST_TIMEOUT = 3.0  # Timeout per server for listing tools
+REGISTRY_INIT_TIMEOUT = float(os.getenv("MCPV_REGISTRY_TIMEOUT", "15.0"))  # Configurable registry init timeout
 
-# === 🌟 [핵심 1] 글로벌 툴 레지스트리 (지도) ===
+# === Display Constants ===
+MAX_TOOLS_DISPLAY = 20
+
+# === 🌟 [필심 1] 글로벌 툴 레지스트리 (지도) ===
 # 구조: { "tool_name": { "server": "server_name", "desc": "description...", "args": "arg1, arg2" } }
 TOOL_REGISTRY = {}
 TOOL_INDEX_FILE = CONFIG_DIR / "tool_index.json"
+_registry_initialized = False
+_registry_lock = asyncio.Lock()
+
 
 async def _build_registry():
-    """Builds tool map by scanning upstream servers. Uses local cache if available."""
-    global TOOL_REGISTRY
-    from .vault import BACKUP_FILE
+    """Builds tool map by scanning upstream servers. Uses local cache if available.
     
-    # 1. 시도: 로컬 캐시 먼저 읽기
-    if not TOOL_REGISTRY and TOOL_INDEX_FILE.exists():
-        try:
-            with open(TOOL_INDEX_FILE, "r", encoding="utf-8") as f:
-                TOOL_REGISTRY = json.load(f)
+    This function is idempotent and thread-safe. Multiple concurrent calls will
+    only trigger one actual registry build. Subsequent calls will wait for the
+    first call to complete or return immediately if already initialized.
+    """
+    global TOOL_REGISTRY, _registry_initialized
+    
+    # Fast path: if already initialized, return immediately (idempotency)
+    if _registry_initialized and TOOL_REGISTRY:
+        logger.debug("Registry already initialized, skipping rebuild")
+        return
+    
+    # Acquire lock to prevent concurrent builds (thread safety)
+    async with _registry_lock:
+        # Double-check after acquiring lock (another thread might have initialized)
+        if _registry_initialized and TOOL_REGISTRY:
+            logger.debug("Registry initialized while waiting for lock, skipping rebuild")
+            return
+        
+        from .vault import BACKUP_FILE
+        
+        # 1. 시도: 로컬 캐시 먼저 읽기
+        if not TOOL_REGISTRY and TOOL_INDEX_FILE.exists():
+            try:
+                with open(TOOL_INDEX_FILE, "r", encoding="utf-8") as f:
+                    TOOL_REGISTRY = json.load(f)
                 logger.info("⚡ Tool Registry loaded from local cache.")
-        except (json.JSONDecodeError, OSError) as e:
-            logger.warning(f"Failed to load tool cache: {e}")
+            except (json.JSONDecodeError, OSError) as e:
+                logger.warning(f"Failed to load tool cache: {e}")
 
-    if not BACKUP_FILE.exists(): return
-    
-    with open(BACKUP_FILE, "r", encoding="utf-8") as f:
-        config = json.load(f)
-    
-    active_servers = [k for k, v in config.get("mcpServers", {}).items() if not v.get("disabled")]
-    
-    # 병렬 연결 시도 (REQ-01: timeout wrapper)
-    tasks = [manager.get_session(name) for name in active_servers]
-    try:
-        sessions = await asyncio.wait_for(
-            asyncio.gather(*tasks, return_exceptions=True),
-            timeout=GATHER_TIMEOUT
-        )
-    except asyncio.TimeoutError:
-        logger.warning(f"Timeout ({GATHER_TIMEOUT}s) connecting to servers")
-        return  # Exit early, use cached registry if available
-    
-    new_registry = {}
-    
-    for name, session in zip(active_servers, sessions):
-        if not session or isinstance(session, Exception):
-            if isinstance(session, Exception):
-                logger.warning(f"Failed to connect to {name}: {session}")
-            continue
+        if not BACKUP_FILE.exists(): return
+        
+        with open(BACKUP_FILE, "r", encoding="utf-8") as f:
+            config = json.load(f)
+        
+        active_servers = [k for k, v in config.get("mcpServers", {}).items() if not v.get("disabled")]
+        
+        # 병렬 연결 시도 (REQ-01: timeout wrapper)
+        tasks = [manager.get_session(name) for name in active_servers]
         try:
-            tools = await asyncio.wait_for(session.list_tools(), timeout=TOOL_LIST_TIMEOUT)
-            for t in tools.tools:
-                key = t.name
-                if key in new_registry:
-                    key = f"{name}_{t.name}"
-                
-                args = list(t.inputSchema.get("properties", {}).keys())
-                new_registry[key] = {
-                    "server": name,
-                    "real_name": t.name,
-                    "desc": t.description[:150] if t.description else "No description",
-                    "args": ", ".join(args)
-                }
+            sessions = await asyncio.wait_for(
+                asyncio.gather(*tasks, return_exceptions=True),
+                timeout=GATHER_TIMEOUT
+            )
         except asyncio.TimeoutError:
-            logger.warning(f"Timeout listing tools from {name}")
-            continue
-        except Exception as e:
-            logger.warning(f"Error listing tools from {name}: {e}")
-            continue
-            
-    if new_registry:
-        TOOL_REGISTRY = new_registry
-        # 로컬 파일에 캐시 저장
-        try:
-            with open(TOOL_INDEX_FILE, "w", encoding="utf-8") as f:
-                json.dump(TOOL_REGISTRY, f, indent=2)
-        except OSError as e:
-            logger.warning(f"Failed to save tool cache: {e}")
-        logger.info(f"🗺️ Tool Registry Rebuilt and Cached: {len(TOOL_REGISTRY)} tools found.")
+            logger.warning(f"Timeout ({GATHER_TIMEOUT}s) connecting to servers")
+            return  # Exit early, use cached registry if available
+        
+        new_registry = {}
+        
+        for name, session in zip(active_servers, sessions):
+            if not session or isinstance(session, Exception):
+                if isinstance(session, Exception):
+                    logger.warning(f"Failed to connect to {name}: {session}")
+                continue
+            try:
+                tools = await asyncio.wait_for(session.list_tools(), timeout=TOOL_LIST_TIMEOUT)
+                for t in tools.tools:
+                    key = t.name
+                    if key in new_registry:
+                        key = f"{name}_{t.name}"
+                    
+                    args = list(t.inputSchema.get("properties", {}).keys())
+                    new_registry[key] = {
+                        "server": name,
+                        "real_name": t.name,
+                        "desc": t.description[:150] if t.description else "No description",
+                        "args": ", ".join(args)
+                    }
+            except asyncio.TimeoutError:
+                logger.warning(f"Timeout listing tools from {name}")
+                continue
+            except Exception as e:
+                logger.warning(f"Error listing tools from {name}: {e}")
+                continue
+                
+        if new_registry:
+            TOOL_REGISTRY = new_registry
+            _registry_initialized = True
+            # 로컬 파일에 캐시 저장
+            try:
+                with open(TOOL_INDEX_FILE, "w", encoding="utf-8") as f:
+                    json.dump(TOOL_REGISTRY, f, indent=2)
+            except OSError as e:
+                logger.warning(f"Failed to save tool cache: {e}")
+            logger.info(f"🗺️ Tool Registry Rebuilt and Cached: {len(TOOL_REGISTRY)} tools found.")
+
+
+# === Server Lifespan for Auto-Initialization ===
+@asynccontextmanager
+async def server_lifespan(app):
+    """Server lifespan for eager registry initialization at startup."""
+    global _registry_initialized
+    try:
+        # Build the registry with a configurable timeout
+        await asyncio.wait_for(_build_registry(), timeout=REGISTRY_INIT_TIMEOUT)
+        _registry_initialized = True
+        logger.info("✅ [MCPV] Tool registry initialized successfully at startup")
+    except asyncio.TimeoutError:
+        logger.warning("⏱️ [MCPV] Timeout occurred while building registry at startup - will initialize on first call")
+    except Exception as e:
+        logger.error(f"❌ [MCPV] Failed to initialize registry at startup: {e}")
+        # Continue server startup even if registry fails - graceful degradation
+        pass
+    # Yield control to allow server to run
+    yield
+    # Cleanup on shutdown (if needed)
+    logger.debug("MCP Vault server shutting down")
+
+
+# Initialize FastMCP with basic instructions and lifespan.
+# Note: FastMCP instructions parameter expects a string, not a callable.
+# The actual dynamic instructions will be available after startup completes.
+mcp = FastMCP("mcpv", instructions="MCP Vault proxy server. Call get_initial_context() to discover available tools.", lifespan=server_lifespan)
+
 
 # === 🌟 [핵심 2] 스마트 컨텍스트 주입 (압축 모드) ===
 @mcp.tool()
-async def get_initial_context(force: bool = False) -> str:
+async def get_initial_context(force: bool = False, detailed: bool = False) -> str:
     """
     [System Start] Initializes the session.
     Returns a summary of available tools to save tokens and prevent truncation.
+    
+    Args:
+        force: Bypass valve cache if True
+        detailed: If True, returns full tool listings and instructions.
+                  If False (default), returns compact summary to reduce token overhead (~60-80% reduction).
     """
     # 1. 밸브 체크
     allowed, msg = valve.check(force)
@@ -126,22 +185,54 @@ async def get_initial_context(force: bool = False) -> str:
     # 3. 서버별 도구 목록 요약 (이름만)
     servers = {}
     for t_name, info in TOOL_REGISTRY.items():
-        srv = info['server']
+        srv = info.get('server')
+        if not srv:
+            continue
         if srv not in servers: servers[srv] = []
         servers[srv].append(t_name)
     
+    if detailed:
+        return _build_detailed_context(servers)
+    else:
+        return _build_compact_context(servers)
+
+
+def _build_compact_context(servers: dict) -> str:
+    """Generate compact context summary to reduce token overhead (~60-80% reduction)."""
     manual = [
         "=== 🎮 MCPV SMART CONSOLE (Vault v0.4) ===",
-        "Performance optimization: compact tool names are listed. Use 'mcpv_admin' for details.",
+        "Mode: Compact (use detailed=True for full tool listings)",
         f"Detected {len(servers)} active servers and {len(TOOL_REGISTRY)} total tools.\n",
-        "--- Quick Search (Vaulted Tools) ---"
+        "--- Available Servers ---"
+    ]
+    
+    # Server names with tool counts only (no individual tool names)
+    for srv, tools in servers.items():
+        manual.append(f"📦 {srv}: {len(tools)} tools")
+    
+    manual.append("\n=== [🚀 CRITICAL: Access Modes] ===")
+    manual.append("1. DIRECT TOOLS (e.g., mcp_exa_*): Call these directly as functions.")
+    manual.append("2. VAULTED TOOLS: Use the 'run_tool' proxy with base tool name.")
+    manual.append("   - Example: run_tool(tool_name='brave_web_search', args={...})")
+    manual.append("\nTip: Use 'get_initial_context(detailed=True)' to see full tool listings and schema access info.")
+    
+    return "\n".join(manual)
+
+
+def _build_detailed_context(servers: dict) -> str:
+    """Generate detailed context with all tool names and complete instructions."""
+    manual = [
+        "=== 🎮 MCPV SMART CONSOLE (Vault v0.4) ===",
+        "Mode: Detailed (full tool listings & instructions)",
+        f"Detected {len(servers)} active servers and {len(TOOL_REGISTRY)} total tools.\n",
+        "--- Available Tools (Vaulted) ---"
     ]
     
     for srv, tools in servers.items():
         # Add 'vault:' prefix to indicate these are NOT direct functions
-        prefixed_tools = [f"vault:{t}" for t in tools[:20]]
+        prefixed_tools = [f"vault:{t}" for t in tools[:MAX_TOOLS_DISPLAY]]
         tool_fmt = ", ".join(prefixed_tools)
-        if len(tools) > 20: tool_fmt += "..."
+        if len(tools) > MAX_TOOLS_DISPLAY: tool_fmt += "..."
         manual.append(f"📦 {srv} ({len(tools)}): {tool_fmt}")
     
     manual.append("\n=== [🚀 CRITICAL: Access Modes] ===")
@@ -343,11 +434,3 @@ def list_directory(path: str = ".") -> str:
         return "❌ Directory not found"
     except Exception as e:
         return f"❌ Error: {e}"
-
-# JIT Initialized on first call.
-# @mcp.on_startup()
-async def on_startup():
-    """Warms up the registry in the background when the server starts."""
-    logger.info("🚀 [MCPV] Starting background registry warmup...")
-    # 비동기로 빌드 진행 (이전 캐시 로드 포함)
-    asyncio.create_task(_build_registry())
