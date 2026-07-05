@@ -62,12 +62,18 @@ async def dispatch(registry: ToolRegistry, action: str, params: dict = None) -> 
         server_name, enabled = params.get("server_name"), params.get("enabled", True)
         if not server_name: return "❌ Missing param 'server_name'."
         success = manager.update_config(server_name, "disabled", not enabled)
+        if success:
+            import asyncio
+            asyncio.create_task(registry.initialize(force=True))
         return f"✅ Server '{server_name}' is now {'ENABLED' if enabled else 'DISABLED'}." if success else "❌ Update failed."
 
     elif action == "toggle_tool":
         server_name, tool_name, enabled = params.get("server_name"), params.get("tool_name"), params.get("enabled", True)
         if not (server_name and tool_name): return "❌ Missing params."
         success = manager.update_disabled_tools(server_name, tool_name, not enabled)
+        if success:
+            import asyncio
+            asyncio.create_task(registry.initialize(force=True))
         return f"✅ Tool '{tool_name}' on '{server_name}' is now {'ENABLED' if enabled else 'DISABLED'}." if success else "❌ Update failed."
 
     return constants.UI_MESSAGES["unknown_action"]

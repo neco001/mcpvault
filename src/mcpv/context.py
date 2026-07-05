@@ -74,7 +74,7 @@ async def get_initial_context(registry: ToolRegistry, force: bool = False, detai
     if not allowed: return msg
     
     # 2. Build registry (wake up servers)
-    await registry.initialize()
+    await registry.initialize(force=force)
     
     tool_registry = registry.get_registry()
     

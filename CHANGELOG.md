@@ -1,5 +1,47 @@
 # Changelog
 
+## SOS Sync - 2026-05-02 23:57:02
+
+## [2026-05-02 21:34:59] f78b320c-9321-4148-b98a-f06af3006d8d
+
+**Task**: Baseline Modernization & Constants Extraction
+
+**Advice**: Create src/mcpv/constants.py with all hardcoded strings (MCPV_INSTRUCTIONS, UI_MESSAGES), timeout constants (GATHER_TIMEOUT, TOOL_LIST_TIMEOUT, REGISTRY_INIT_TIMEOUT), and display limits (MAX_TOOLS_DISPLAY). Fix mutable default arguments (params: dict = {} → None, args: dict = {} → None). Replace bare except:pass on lines 14-15 and 25-26 with specific exception types + logger.warning. Add type hints to all functions. Translate/remove Korean comments to English. This task is the foundation for all subsequent extraction work.
+
+---
+
+## [2026-05-02 21:35:00] 6777990b-f74f-4c6d-bfeb-70222711bfaa
+
+**Task**: Registry Encapsulation - ToolRegistry class
+
+**Advice**: Create src/mcpv/registry.py implementing a ToolRegistry class that encapsulates: tool dictionary, _registry_initialized flag, _registry_lock (asyncio.Lock), TOOL_INDEX_FILE path, and all registry lifecycle methods. Migrate _build_registry() logic into async method ToolRegistry.initialize() — must remain idempotent and thread-safe with double-check locking. Add methods: get_tools(), search(query), get_tools_by_server(server_name), toggle_server(name, enabled), toggle_tool(server, tool, enabled). The class must accept dependencies (manager, BACKUP_FILE path, config_dir) via constructor injection. Keep TOOL_REGISTRY backward-compatible as module-level alias initially.
+
+---
+
+## [2026-05-02 21:35:00] dc83928b-0e46-469b-8997-6e34ebfa6b08
+
+**Task**: Context Builders & Admin Dispatch extraction
+
+**Advice**: Create src/mcpv/context.py with: build_initial_context(registry, valve, force, detailed), build_compact_context(servers, total_tools), build_detailed_context(servers, total_tools). Registry injected as parameter. Create src/mcpv/admin.py with AdminDispatcher class: use dict-based dispatch mapping action names to async handler functions (list_servers, list_tools, search, toggle_server, toggle_tool). Each handler receives registry instance + params dict. Replace the 5-branch if/elif in mcpv_admin with AdminDispatcher.dispatch(action, params).
+
+---
+
+## [2026-05-02 21:35:00] 1121d0ef-9b24-42df-b78e-50a05f310dec
+
+**Task**: Smart Routing & File Utilities extraction
+
+**Advice**: Create src/mcpv/routing.py implementing: route_tool_call(tool_name, args, registry, manager) — migrate run_tool logic including vault: prefix stripping, mcp_ prefix correction, server-name confusion detection, and typo suggestion. Create src/mcpv/file_utils.py with: validate_path(path, root_dir) → Path (single DRY containment check), safe_read_file(path, root_dir) → str, safe_list_directory(path, root_dir) → str. Both file functions must call validate_path() before I/O. All functions need full type hints.
+
+---
+
+## [2026-05-02 21:35:00] a505fa0b-269a-43cb-be8a-4c8dc68f3479
+
+**Task**: Facade Assembly & Compatibility Verification
+
+**Advice**: Refactor server.py into thin orchestrator/facade: import and instantiate ToolRegistry, configure FastMCP lifespan to call registry.initialize(), register all @mcp.tool() functions delegating to new modules (get_initial_context → context, mcpv_admin → admin.dispatch, run_tool → routing, read_file/list_directory → file_utils). Re-export mcp, TOOL_REGISTRY (alias), and all tool functions at module level for backward compat. Run pytest on test_timeout_protection.py and test_auto_initialization.py. Update internal test imports only where tests reference module internals directly.
+
+---
+
 ## SOS Sync - 2026-05-02 20:44:47
 
 ## [2026-04-08 11:17:21] 8ca1ce87-8404-466a-80ff-fb781bf499f5

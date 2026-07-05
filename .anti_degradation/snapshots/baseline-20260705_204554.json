@@ -1,0 +1,2868 @@
+{
+  "timestamp": "2026-07-05T20:45:53.543766Z",
+  "project_dir": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault",
+  "files": {
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\check_bytes.py": {
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "os",
+          "alias": null
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\convert.py": {
+      "functions": [
+        {
+          "name": "remove_readonly",
+          "signature": "remove_readonly(func, path, _)",
+          "lineno": 42,
+          "docstring": "Windows\uc5d0\uc11c \uc0ad\uc81c \ubd88\uac00 \ud30c\uc77c \uac15\uc81c \uc0ad\uc81c",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\convert.py"
+        },
+        {
+          "name": "clone_repo",
+          "signature": "clone_repo(repo_url, pat, target_dir)",
+          "lineno": 47,
+          "docstring": null,
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\convert.py"
+        },
+        {
+          "name": "is_ignored",
+          "signature": "is_ignored(path, names)",
+          "lineno": 61,
+          "docstring": null,
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\convert.py"
+        },
+        {
+          "name": "merge_files",
+          "signature": "merge_files(source_dir, output_file)",
+          "lineno": 70,
+          "docstring": null,
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\convert.py"
+        },
+        {
+          "name": "main",
+          "signature": "main()",
+          "lineno": 103,
+          "docstring": null,
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\convert.py"
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "os",
+          "alias": null
+        },
+        {
+          "module": "subprocess",
+          "alias": null
+        },
+        {
+          "module": "shutil",
+          "alias": null
+        },
+        {
+          "module": "fnmatch",
+          "alias": null
+        },
+        {
+          "module": "stat",
+          "alias": null
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\create_toml.py": {
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "os",
+          "alias": null
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\force_clean.py": {
+      "functions": [],
+      "classes": [],
+      "imports": []
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\revert.py": {
+      "functions": [
+        {
+          "name": "normalize_content",
+          "signature": "normalize_content(content)",
+          "lineno": 11,
+          "docstring": "\ube44\uad50\ub97c \uc704\ud574 \uc904\ubc14\uafc8 \ubb38\uc790\ub97c \ud1b5\uc77c\ud558\uace0 \uc591\ub05d \uacf5\ubc31\uc744 \uc81c\uac70\ud569\ub2c8\ub2e4.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\revert.py"
+        },
+        {
+          "name": "restore_if_changed",
+          "signature": "restore_if_changed()",
+          "lineno": 19,
+          "docstring": null,
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\revert.py"
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "os",
+          "alias": null
+        },
+        {
+          "module": "re",
+          "alias": null
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\search_pat.py": {
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "os",
+          "alias": null
+        },
+        {
+          "module": "re",
+          "alias": null
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\__main__.py": {
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "main",
+          "names": [
+            "app"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\admin.py": {
+      "functions": [
+        {
+          "name": "dispatch",
+          "signature": "dispatch(registry, action, params)",
+          "lineno": 10,
+          "docstring": "Unified administration console for MCP Vault.\nActions:\n- list_servers: List all upstream servers and status.\n- list_tools: Show detailed tools for a server (params: {'server_name': '...'}).\n- search: Search tools by keyword (params: {'query': '...'}).\n- toggle_server: Enable/disable server (params: {'server_name': '...', 'enabled': bool}).\n- toggle_tool: Enable/disable tool (params: {'server_name': '...', 'tool_name': '...', 'enabled': bool}).",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\admin.py"
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "json",
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Any",
+            "Dict"
+          ]
+        },
+        {
+          "module": "",
+          "names": [
+            "constants"
+          ]
+        },
+        {
+          "module": "registry",
+          "names": [
+            "ToolRegistry"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\constants.py": {
+      "functions": [
+        {
+          "name": "_get_timeout",
+          "signature": "_get_timeout(env_var, default)",
+          "lineno": 9,
+          "docstring": "Safely parse timeout from environment variable.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\constants.py"
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "os",
+          "alias": null
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\context.py": {
+      "functions": [
+        {
+          "name": "_build_compact_context",
+          "signature": "_build_compact_context(servers, registry)",
+          "lineno": 9,
+          "docstring": "Generate compact context summary to reduce token overhead (~60-80% reduction).",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\context.py"
+        },
+        {
+          "name": "_build_detailed_context",
+          "signature": "_build_detailed_context(servers, registry)",
+          "lineno": 31,
+          "docstring": "Generate detailed context with all tool names and complete instructions.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\context.py"
+        },
+        {
+          "name": "get_initial_context",
+          "signature": "get_initial_context(registry, force, detailed)",
+          "lineno": 59,
+          "docstring": "[System Start] Initializes the session.\nReturns a summary of available tools to save tokens and prevent truncation.\n\nArgs:\n    registry: The ToolRegistry instance\n    force: Bypass valve cache if True\n    detailed: If True, returns full tool listings and instructions.\n              If False (default), returns compact summary to reduce token overhead (~60-80% reduction).",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\context.py"
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "typing",
+          "names": [
+            "Dict",
+            "Any",
+            "Optional"
+          ]
+        },
+        {
+          "module": "",
+          "names": [
+            "constants"
+          ]
+        },
+        {
+          "module": "registry",
+          "names": [
+            "ToolRegistry"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\dashboard.py": {
+      "functions": [],
+      "classes": [],
+      "imports": []
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\file_utils.py": {
+      "functions": [
+        {
+          "name": "read_file",
+          "signature": "read_file(path)",
+          "lineno": 12,
+          "docstring": "Reads a file from the project root.\n\nArgs:\n    path: Relative path to the file\n\nReturns:\n    File contents or error message",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\file_utils.py"
+        },
+        {
+          "name": "list_directory",
+          "signature": "list_directory(path)",
+          "lineno": 40,
+          "docstring": "Lists files in a directory.\n\nArgs:\n    path: Relative path to the directory (default: current directory)\n\nReturns:\n    List of file names or error message",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\file_utils.py"
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "os",
+          "alias": null
+        },
+        {
+          "module": "",
+          "names": [
+            "constants"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_abstraction.py": {
+      "functions": [
+        {
+          "name": "get_platform_info",
+          "signature": "get_platform_info()",
+          "lineno": 229,
+          "docstring": "Get the global PlatformInfo instance.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_abstraction.py"
+        }
+      ],
+      "classes": [
+        {
+          "name": "PlatformInfo",
+          "lineno": 16,
+          "docstring": "Provides platform-specific information and utilities.",
+          "methods": [
+            {
+              "name": "__init__",
+              "signature": "__init__(self)",
+              "lineno": 19
+            },
+            {
+              "name": "is_windows",
+              "signature": "is_windows(self)",
+              "lineno": 26
+            },
+            {
+              "name": "is_macos",
+              "signature": "is_macos(self)",
+              "lineno": 31
+            },
+            {
+              "name": "is_linux",
+              "signature": "is_linux(self)",
+              "lineno": 36
+            },
+            {
+              "name": "platform_name",
+              "signature": "platform_name(self)",
+              "lineno": 41
+            },
+            {
+              "name": "get_appdata_path",
+              "signature": "get_appdata_path(self)",
+              "lineno": 51
+            },
+            {
+              "name": "get_config_dir",
+              "signature": "get_config_dir(self)",
+              "lineno": 72
+            },
+            {
+              "name": "get_executable_name",
+              "signature": "get_executable_name(self, base_name)",
+              "lineno": 80
+            },
+            {
+              "name": "get_script_extension",
+              "signature": "get_script_extension(self)",
+              "lineno": 93
+            },
+            {
+              "name": "get_shell_command",
+              "signature": "get_shell_command(self)",
+              "lineno": 102
+            },
+            {
+              "name": "get_process_kwargs",
+              "signature": "get_process_kwargs(self)",
+              "lineno": 113
+            },
+            {
+              "name": "get_antigravity_exe_path",
+              "signature": "get_antigravity_exe_path(self)",
+              "lineno": 128
+            },
+            {
+              "name": "get_booster_script_name",
+              "signature": "get_booster_script_name(self)",
+              "lineno": 150
+            },
+            {
+              "name": "get_desktop_path",
+              "signature": "get_desktop_path(self)",
+              "lineno": 159
+            },
+            {
+              "name": "get_applications_path",
+              "signature": "get_applications_path(self)",
+              "lineno": 169
+            },
+            {
+              "name": "run_shell_command",
+              "signature": "run_shell_command(self, command, capture)",
+              "lineno": 190
+            }
+          ],
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_abstraction.py"
+        }
+      ],
+      "imports": [
+        {
+          "module": "os",
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "alias": null
+        },
+        {
+          "module": "platform",
+          "alias": null
+        },
+        {
+          "module": "subprocess",
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ]
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Optional",
+            "Dict",
+            "Any"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py": {
+      "functions": [
+        {
+          "name": "get_desktop_path",
+          "signature": "get_desktop_path()",
+          "lineno": 18,
+          "docstring": "Get the actual Desktop directory path for the current platform.\n\nHandles:\n- Windows OneDrive Desktop redirect via registry\n- macOS ~/Desktop\n- Linux XDG Desktop directory",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+        },
+        {
+          "name": "_get_windows_desktop",
+          "signature": "_get_windows_desktop()",
+          "lineno": 37,
+          "docstring": "Get Windows Desktop path, handling OneDrive redirect.\n\nChecks registry key: HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders\\Desktop\nFalls back to USERPROFILE\\Desktop if registry query fails.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+        },
+        {
+          "name": "_get_linux_desktop",
+          "signature": "_get_linux_desktop()",
+          "lineno": 79,
+          "docstring": "Get Linux Desktop path using XDG user directories.\n\nTries xdg-user-dir first, falls back to ~/Desktop.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+        },
+        {
+          "name": "get_applications_path",
+          "signature": "get_applications_path()",
+          "lineno": 100,
+          "docstring": "Get the Applications directory for system menu integration.\n\nReturns:\n- Windows: Start Menu Programs folder\n- macOS: ~/Applications or /Applications\n- Linux: ~/.local/share/applications",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+        },
+        {
+          "name": "create_launcher",
+          "signature": "create_launcher(name, target, icon, hidden_window, arguments)",
+          "lineno": 122,
+          "docstring": "Create a platform-appropriate launcher/shortcut.\n\nArgs:\n    name: Name of the launcher (without extension)\n    target: Target executable or script path\n    icon: Optional icon path\n    hidden_window: If True, launch with minimized/hidden window\n    arguments: Optional command-line arguments for the target\n\nReturns:\n    Path to the created launcher file\n\nRaises:\n    OSError: If launcher creation fails on the current platform",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+        },
+        {
+          "name": "_create_windows_shortcut",
+          "signature": "_create_windows_shortcut(name, target, icon, hidden_window, arguments)",
+          "lineno": 155,
+          "docstring": "Create Windows .lnk shortcut using PowerShell.\n\nHandles OneDrive Desktop redirect automatically via get_desktop_path().",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+        },
+        {
+          "name": "_create_macos_launcher",
+          "signature": "_create_macos_launcher(name, target, icon, hidden_window, arguments)",
+          "lineno": 236,
+          "docstring": "Create macOS launcher as .command file or .app bundle.\n\nFor simplicity, creates a .command file in ~/Applications or Desktop.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+        },
+        {
+          "name": "_create_linux_desktop_file",
+          "signature": "_create_linux_desktop_file(name, target, icon, hidden_window, arguments)",
+          "lineno": 282,
+          "docstring": "Create Linux .desktop file (XDG standard).\n\nCreates in XDG Desktop directory for desktop visibility.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "os",
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "alias": null
+        },
+        {
+          "module": "subprocess",
+          "alias": null
+        },
+        {
+          "module": "platform",
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ]
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Optional"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\registry.py": {
+      "functions": [],
+      "classes": [
+        {
+          "name": "ToolRegistry",
+          "lineno": 23,
+          "docstring": "Encapsulates tool registry logic, providing async initialization and dict-like access.",
+          "methods": [
+            {
+              "name": "__init__",
+              "signature": "__init__(self)",
+              "lineno": 26
+            },
+            {
+              "name": "_build_registry",
+              "signature": "_build_registry(self, force)",
+              "lineno": 31
+            },
+            {
+              "name": "initialize",
+              "signature": "initialize(self, force)",
+              "lineno": 122
+            },
+            {
+              "name": "get_registry",
+              "signature": "get_registry(self)",
+              "lineno": 136
+            },
+            {
+              "name": "__iter__",
+              "signature": "__iter__(self)",
+              "lineno": 141
+            },
+            {
+              "name": "__len__",
+              "signature": "__len__(self)",
+              "lineno": 144
+            },
+            {
+              "name": "__getitem__",
+              "signature": "__getitem__(self, key)",
+              "lineno": 147
+            },
+            {
+              "name": "__contains__",
+              "signature": "__contains__(self, key)",
+              "lineno": 150
+            },
+            {
+              "name": "keys",
+              "signature": "keys(self)",
+              "lineno": 153
+            },
+            {
+              "name": "values",
+              "signature": "values(self)",
+              "lineno": 156
+            },
+            {
+              "name": "items",
+              "signature": "items(self)",
+              "lineno": 159
+            }
+          ],
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\registry.py"
+        }
+      ],
+      "imports": [
+        {
+          "module": "asyncio",
+          "alias": null
+        },
+        {
+          "module": "json",
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ]
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Dict",
+            "Any",
+            "Iterator",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "module": "",
+          "names": [
+            "constants"
+          ]
+        },
+        {
+          "module": "platform_abstraction",
+          "names": [
+            "platform_info"
+          ]
+        },
+        {
+          "module": "vault",
+          "names": [
+            "manager"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\routing.py": {
+      "functions": [
+        {
+          "name": "run_tool",
+          "signature": "run_tool(registry, tool_name, args)",
+          "lineno": 13,
+          "docstring": "Executes ANY tool from the available list.\nSmart Router: Automatically finds the correct server for the tool.\n\nArgs:\n    registry: The ToolRegistry instance containing tool mappings\n    tool_name: Name of the tool to execute\n    args: Arguments to pass to the tool (optional)\n\nReturns:\n    Tool execution result or error message",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\routing.py"
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "typing",
+          "names": [
+            "Any",
+            "Dict"
+          ]
+        },
+        {
+          "module": "registry",
+          "names": [
+            "ToolRegistry"
+          ]
+        },
+        {
+          "module": "vault",
+          "names": [
+            "manager"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\server.py": {
+      "functions": [
+        {
+          "name": "server_lifespan",
+          "signature": "server_lifespan(app)",
+          "lineno": 25,
+          "docstring": "Server lifespan for eager registry initialization at startup.\nInitializes the ToolRegistry in the background before serving any requests to avoid blocking startup.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\server.py"
+        },
+        {
+          "name": "get_initial_context",
+          "signature": "get_initial_context(force, detailed)",
+          "lineno": 47,
+          "docstring": "[System Start] Initializes the session.\nReturns a summary of available tools to save tokens and prevent truncation.\n\nArgs:\n    force: Bypass valve cache if True\n    detailed: If True, returns full tool listings and instructions.\n              If False (default), returns compact summary to reduce token overhead (~60-80% reduction).",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\server.py"
+        },
+        {
+          "name": "mcpv_admin",
+          "signature": "mcpv_admin(action, params)",
+          "lineno": 61,
+          "docstring": "Unified administration console for MCP Vault.\nActions:\n- list_servers: List all upstream servers and status.\n- list_tools: Show detailed tools for a server (params: {'server_name': '...'}).\n- search: Search tools by keyword (params: {'query': '...'}).\n- toggle_server: Enable/disable server (params: {'server_name': '...', 'enabled': bool}).\n- toggle_tool: Enable/disable tool (params: {'server_name': '...', 'tool_name': '...', 'enabled': bool}).",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\server.py"
+        },
+        {
+          "name": "run_tool",
+          "signature": "run_tool(tool_name, args)",
+          "lineno": 75,
+          "docstring": "Executes ANY tool from the available list.\nSmart Router: Automatically finds the correct server for the tool.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\server.py"
+        },
+        {
+          "name": "read_file",
+          "signature": "read_file(path)",
+          "lineno": 84,
+          "docstring": "Reads a file from the project root.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\server.py"
+        },
+        {
+          "name": "list_directory",
+          "signature": "list_directory(path)",
+          "lineno": 90,
+          "docstring": "Lists files in a directory.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\server.py"
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "asyncio",
+          "alias": null
+        },
+        {
+          "module": "collections.abc",
+          "names": [
+            "AsyncGenerator"
+          ]
+        },
+        {
+          "module": "contextlib",
+          "names": [
+            "asynccontextmanager"
+          ]
+        },
+        {
+          "module": "fastmcp",
+          "names": [
+            "FastMCP"
+          ]
+        },
+        {
+          "module": "",
+          "names": [
+            "constants"
+          ]
+        },
+        {
+          "module": "admin",
+          "names": [
+            "dispatch"
+          ]
+        },
+        {
+          "module": "context",
+          "names": [
+            "get_initial_context"
+          ]
+        },
+        {
+          "module": "file_utils",
+          "names": [
+            "list_directory",
+            "read_file"
+          ]
+        },
+        {
+          "module": "registry",
+          "names": [
+            "ToolRegistry"
+          ]
+        },
+        {
+          "module": "routing",
+          "names": [
+            "run_tool"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\vault.py": {
+      "functions": [],
+      "classes": [
+        {
+          "name": "VaultManager",
+          "lineno": 40,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "signature": "__init__(self)",
+              "lineno": 41
+            },
+            {
+              "name": "install",
+              "signature": "install(self, force)",
+              "lineno": 48
+            },
+            {
+              "name": "_hijack_config",
+              "signature": "_hijack_config(self, force)",
+              "lineno": 64
+            },
+            {
+              "name": "_install_booster",
+              "signature": "_install_booster(self)",
+              "lineno": 158
+            },
+            {
+              "name": "_create_shortcut",
+              "signature": "_create_shortcut(self, target, name, icon)",
+              "lineno": 205
+            },
+            {
+              "name": "_create_shortcut_windows_only",
+              "signature": "_create_shortcut_windows_only(self, target, name, icon)",
+              "lineno": 221
+            },
+            {
+              "name": "get_session",
+              "signature": "get_session(self, server_name)",
+              "lineno": 252
+            },
+            {
+              "name": "cleanup",
+              "signature": "cleanup(self)",
+              "lineno": 338
+            },
+            {
+              "name": "update_config",
+              "signature": "update_config(self, server_name, key, value)",
+              "lineno": 341
+            },
+            {
+              "name": "update_disabled_tools",
+              "signature": "update_disabled_tools(self, server_name, tool_name, disabled)",
+              "lineno": 360
+            }
+          ],
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\vault.py"
+        }
+      ],
+      "imports": [
+        {
+          "module": "json",
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "alias": null
+        },
+        {
+          "module": "shutil",
+          "alias": null
+        },
+        {
+          "module": "os",
+          "alias": null
+        },
+        {
+          "module": "subprocess",
+          "alias": null
+        },
+        {
+          "module": "asyncio",
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ]
+        },
+        {
+          "module": "mcp.client.session",
+          "names": [
+            "ClientSession"
+          ]
+        },
+        {
+          "module": "mcp.client.stdio",
+          "names": [
+            "stdio_client"
+          ]
+        },
+        {
+          "module": "contextlib",
+          "names": [
+            "AsyncExitStack"
+          ]
+        },
+        {
+          "module": "",
+          "names": [
+            "platform_utils"
+          ]
+        },
+        {
+          "module": "platform_abstraction",
+          "names": [
+            "platform_info"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py": {
+      "functions": [],
+      "classes": [
+        {
+          "name": "TestRegistryIdempotIdempotency",
+          "lineno": 13,
+          "docstring": "Tests for _build_registry idempotency and thread-safety.",
+          "methods": [
+            {
+              "name": "test_build_registry_is_idempotent",
+              "signature": "test_build_registry_is_idempotent(self)",
+              "lineno": 17
+            },
+            {
+              "name": "test_build_registry_fast_path",
+              "signature": "test_build_registry_fast_path(self)",
+              "lineno": 67
+            },
+            {
+              "name": "test_build_registry_thread_safe",
+              "signature": "test_build_registry_thread_safe(self)",
+              "lineno": 99
+            }
+          ],
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py"
+        },
+        {
+          "name": "TestStartupInitialization",
+          "lineno": 139,
+          "docstring": "Tests for startup initialization behavior.",
+          "methods": [
+            {
+              "name": "test_on_startup_initializes_registry",
+              "signature": "test_on_startup_initializes_registry(self)",
+              "lineno": 143
+            },
+            {
+              "name": "test_startup_failure_does_not_crash_server",
+              "signature": "test_startup_failure_does_not_crash_server(self)",
+              "lineno": 180
+            }
+          ],
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py"
+        },
+        {
+          "name": "TestGetInitialContextCompactMode",
+          "lineno": 223,
+          "docstring": "Tests for get_initial_context compact mode.",
+          "methods": [
+            {
+              "name": "test_get_initial_context_returns_compact_summary",
+              "signature": "test_get_initial_context_returns_compact_summary(self)",
+              "lineno": 227
+            },
+            {
+              "name": "test_get_initial_context_detailed_mode_returns_full_info",
+              "signature": "test_get_initial_context_detailed_mode_returns_full_info(self)",
+              "lineno": 259
+            }
+          ],
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py"
+        },
+        {
+          "name": "TestToolRoutingWithoutExplicitCall",
+          "lineno": 284,
+          "docstring": "Tests for tool routing without explicit get_initial_context call.",
+          "methods": [
+            {
+              "name": "test_run_tool_works_without_explicit_initial_context_call",
+              "signature": "test_run_tool_works_without_explicit_initial_context_call(self)",
+              "lineno": 288
+            },
+            {
+              "name": "test_run_tool_buildsari_if_not_initialized",
+              "signature": "test_run_tool_buildsari_if_not_initialized(self)",
+              "lineno": 321
+            }
+          ],
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py"
+        },
+        {
+          "name": "TestBackwardCompatibility",
+          "lineno": 360,
+          "docstring": "Tests for backward compatibility with existing clients.",
+          "methods": [
+            {
+              "name": "test_get_initial_context_still_works_with_force_parameter",
+              "signature": "test_get_initial_context_still_works_with_force_parameter(self)",
+              "lineno": 364
+            },
+            {
+              "name": "test_get_initial_context_returns_instructions_on_empty_registry",
+              "signature": "test_get_initial_context_returns_instructions_on_empty_registry(self)",
+              "lineno": 380
+            }
+          ],
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py"
+        }
+      ],
+      "imports": [
+        {
+          "module": "asyncio",
+          "alias": null
+        },
+        {
+          "module": "pytest",
+          "alias": null
+        },
+        {
+          "module": "json",
+          "alias": null
+        },
+        {
+          "module": "unittest.mock",
+          "names": [
+            "AsyncMock",
+            "patch",
+            "MagicMock",
+            "mock_open"
+          ]
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_baseline_modernization.py": {
+      "functions": [
+        {
+          "name": "test_constants_module_exists",
+          "signature": "test_constants_module_exists()",
+          "lineno": 8,
+          "docstring": "Test that src/mcpv/constants.py module exists",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_baseline_modernization.py"
+        },
+        {
+          "name": "test_required_constants_exist",
+          "signature": "test_required_constants_exist()",
+          "lineno": 16,
+          "docstring": "Test that all required constants exist in constants module",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_baseline_modernization.py"
+        },
+        {
+          "name": "test_server_functions_have_type_hints",
+          "signature": "test_server_functions_have_type_hints()",
+          "lineno": 51,
+          "docstring": "Test that server.py functions have proper type hints",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_baseline_modernization.py"
+        },
+        {
+          "name": "test_server_imports_from_constants",
+          "signature": "test_server_imports_from_constants()",
+          "lineno": 99,
+          "docstring": "Test that server.py imports from constants module instead of using hardcoded strings",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_baseline_modernization.py"
+        },
+        {
+          "name": "test_mutable_default_arguments_fixed",
+          "signature": "test_mutable_default_arguments_fixed()",
+          "lineno": 156,
+          "docstring": "Test that server.py functions don't use mutable default arguments",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_baseline_modernization.py"
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "pytest",
+          "alias": null
+        },
+        {
+          "module": "importlib",
+          "alias": null
+        },
+        {
+          "module": "inspect",
+          "alias": null
+        },
+        {
+          "module": "os",
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py": {
+      "functions": [],
+      "classes": [
+        {
+          "name": "TestPlatformInfo",
+          "lineno": 24,
+          "docstring": "Test cases for PlatformInfo class.",
+          "methods": [
+            {
+              "name": "setUp",
+              "signature": "setUp(self)",
+              "lineno": 27
+            },
+            {
+              "name": "test_platform_detection",
+              "signature": "test_platform_detection(self)",
+              "lineno": 31
+            },
+            {
+              "name": "test_windows_platform_detection",
+              "signature": "test_windows_platform_detection(self)",
+              "lineno": 45
+            },
+            {
+              "name": "test_macos_platform_detection",
+              "signature": "test_macos_platform_detection(self)",
+              "lineno": 54
+            },
+            {
+              "name": "test_linux_platform_detection",
+              "signature": "test_linux_platform_detection(self)",
+              "lineno": 63
+            },
+            {
+              "name": "test_windows_appdata_path",
+              "signature": "test_windows_appdata_path(self)",
+              "lineno": 73
+            },
+            {
+              "name": "test_macos_appdata_path",
+              "signature": "test_macos_appdata_path(self, mock_home)",
+              "lineno": 82
+            },
+            {
+              "name": "test_linux_appdata_path",
+              "signature": "test_linux_appdata_path(self, mock_home)",
+              "lineno": 93
+            },
+            {
+              "name": "test_windows_executable_name",
+              "signature": "test_windows_executable_name(self)",
+              "lineno": 103
+            },
+            {
+              "name": "test_macos_executable_name",
+              "signature": "test_macos_executable_name(self)",
+              "lineno": 111
+            },
+            {
+              "name": "test_linux_executable_name",
+              "signature": "test_linux_executable_name(self)",
+              "lineno": 118
+            },
+            {
+              "name": "test_windows_script_extension",
+              "signature": "test_windows_script_extension(self)",
+              "lineno": 125
+            },
+            {
+              "name": "test_macos_script_extension",
+              "signature": "test_macos_script_extension(self)",
+              "lineno": 131
+            },
+            {
+              "name": "test_linux_script_extension",
+              "signature": "test_linux_script_extension(self)",
+              "lineno": 137
+            },
+            {
+              "name": "test_windows_shell_command",
+              "signature": "test_windows_shell_command(self)",
+              "lineno": 143
+            },
+            {
+              "name": "test_macos_shell_command",
+              "signature": "test_macos_shell_command(self)",
+              "lineno": 149
+            },
+            {
+              "name": "test_linux_shell_command",
+              "signature": "test_linux_shell_command(self)",
+              "lineno": 155
+            },
+            {
+              "name": "test_windows_process_kwargs",
+              "signature": "test_windows_process_kwargs(self)",
+              "lineno": 161
+            },
+            {
+              "name": "test_macos_process_kwargs",
+              "signature": "test_macos_process_kwargs(self)",
+              "lineno": 170
+            },
+            {
+              "name": "test_linux_process_kwargs",
+              "signature": "test_linux_process_kwargs(self)",
+              "lineno": 177
+            },
+            {
+              "name": "test_windows_antigravity_exe_path",
+              "signature": "test_windows_antigravity_exe_path(self)",
+              "lineno": 185
+            },
+            {
+              "name": "test_macos_antigravity_exe_path",
+              "signature": "test_macos_antigravity_exe_path(self)",
+              "lineno": 193
+            },
+            {
+              "name": "test_linux_antigravity_exe_path",
+              "signature": "test_linux_antigravity_exe_path(self)",
+              "lineno": 202
+            },
+            {
+              "name": "test_windows_booster_script_name",
+              "signature": "test_windows_booster_script_name(self)",
+              "lineno": 212
+            },
+            {
+              "name": "test_macos_booster_script_name",
+              "signature": "test_macos_booster_script_name(self)",
+              "lineno": 218
+            },
+            {
+              "name": "test_linux_booster_script_name",
+              "signature": "test_linux_booster_script_name(self)",
+              "lineno": 224
+            },
+            {
+              "name": "test_config_dir",
+              "signature": "test_config_dir(self)",
+              "lineno": 229
+            },
+            {
+              "name": "test_global_instance",
+              "signature": "test_global_instance(self)",
+              "lineno": 236
+            },
+            {
+              "name": "test_get_platform_info",
+              "signature": "test_get_platform_info(self)",
+              "lineno": 240
+            }
+          ],
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py"
+        },
+        {
+          "name": "TestPlatformIntegration",
+          "lineno": 247,
+          "docstring": "Integration tests for platform_abstraction with actual system.",
+          "methods": [
+            {
+              "name": "test_actual_platform_detection",
+              "signature": "test_actual_platform_detection(self)",
+              "lineno": 250
+            },
+            {
+              "name": "test_actual_paths_exist",
+              "signature": "test_actual_paths_exist(self)",
+              "lineno": 258
+            },
+            {
+              "name": "test_actual_shell_command",
+              "signature": "test_actual_shell_command(self)",
+              "lineno": 268
+            }
+          ],
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py"
+        }
+      ],
+      "imports": [
+        {
+          "module": "os",
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "alias": null
+        },
+        {
+          "module": "unittest",
+          "alias": null
+        },
+        {
+          "module": "unittest.mock",
+          "names": [
+            "patch",
+            "MagicMock"
+          ]
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ]
+        },
+        {
+          "module": "mcpv.platform_abstraction",
+          "names": [
+            "PlatformInfo",
+            "platform_info",
+            "get_platform_info"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py": {
+      "functions": [
+        {
+          "name": "_get_server_source",
+          "signature": "_get_server_source()",
+          "lineno": 13,
+          "docstring": "Helper to safely get server.py source code.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+        },
+        {
+          "name": "_parse_server_ast",
+          "signature": "_parse_server_ast()",
+          "lineno": 19,
+          "docstring": "Helper to parse server.py into an AST.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+        },
+        {
+          "name": "test_imports_tool_registry_from_registry_module",
+          "signature": "test_imports_tool_registry_from_registry_module()",
+          "lineno": 24,
+          "docstring": "1. Verify server.py imports ToolRegistry from a new registry module.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+        },
+        {
+          "name": "test_tool_registry_is_instantiated",
+          "signature": "test_tool_registry_is_instantiated()",
+          "lineno": 43,
+          "docstring": "4. Verify ToolRegistry is properly instantiated at module level.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+        },
+        {
+          "name": "test_fastmcp_lifecycle_calls_initialize",
+          "signature": "test_fastmcp_lifecycle_calls_initialize()",
+          "lineno": 58,
+          "docstring": "5. Verify FastMCP lifespan calls registry.initialize().",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+        },
+        {
+          "name": "test_tool_functions_are_re_exported",
+          "signature": "test_tool_functions_are_re_exported()",
+          "lineno": 83,
+          "docstring": "3. Verify all tool functions are re-exported at module level for backward compatibility.",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+        },
+        {
+          "name": "test_delegate_functions_are_thin_wrappers",
+          "signature": "test_delegate_functions_are_thin_wrappers()",
+          "lineno": 101,
+          "docstring": "2. Verify server.py is a thin facade (delegate functions are thin wrappers).",
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "ast",
+          "alias": null
+        },
+        {
+          "module": "inspect",
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "alias": null
+        },
+        {
+          "module": "unittest.mock",
+          "names": [
+            "MagicMock",
+            "patch",
+            "AsyncMock"
+          ]
+        },
+        {
+          "module": "pytest",
+          "alias": null
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_timeout_protection.py": {
+      "functions": [],
+      "classes": [
+        {
+          "name": "TestBuildRegistryTimeout",
+          "lineno": 13,
+          "docstring": "Tests for _build_registry timeout protection (REQ-01).",
+          "methods": [
+            {
+              "name": "test_build_registry_does_not_hang_on_slow_server",
+              "signature": "test_build_registry_does_not_hang_on_slow_server(self)",
+              "lineno": 17
+            },
+            {
+              "name": "test_build_registry_continues_after_server_timeout",
+              "signature": "test_build_registry_continues_after_server_timeout(self)",
+              "lineno": 57
+            }
+          ],
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_timeout_protection.py"
+        },
+        {
+          "name": "TestGetSessionTimeout",
+          "lineno": 95,
+          "docstring": "Tests for get_session timeout protection (REQ-02, REQ-05).",
+          "methods": [
+            {
+              "name": "test_get_session_timeout_on_hanging_initialize",
+              "signature": "test_get_session_timeout_on_hanging_initialize(self)",
+              "lineno": 99
+            },
+            {
+              "name": "test_get_session_returns_none_on_timeout_not_raises",
+              "signature": "test_get_session_returns_none_on_timeout_not_raises(self)",
+              "lineno": 149
+            }
+          ],
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_timeout_protection.py"
+        },
+        {
+          "name": "TestExceptionLogging",
+          "lineno": 178,
+          "docstring": "Tests for proper exception handling (REQ-03, REQ-04).",
+          "methods": [
+            {
+              "name": "test_bare_except_pass_replaced_with_logging",
+              "signature": "test_bare_except_pass_replaced_with_logging(self)",
+              "lineno": 182
+            },
+            {
+              "name": "test_bare_except_continue_replaced_with_logging",
+              "signature": "test_bare_except_continue_replaced_with_logging(self)",
+              "lineno": 205
+            }
+          ],
+          "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_timeout_protection.py"
+        }
+      ],
+      "imports": [
+        {
+          "module": "asyncio",
+          "alias": null
+        },
+        {
+          "module": "pytest",
+          "alias": null
+        },
+        {
+          "module": "json",
+          "alias": null
+        },
+        {
+          "module": "unittest.mock",
+          "names": [
+            "AsyncMock",
+            "patch",
+            "MagicMock",
+            "mock_open"
+          ]
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ]
+        }
+      ]
+    },
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\validate_toml.py": {
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "tomllib",
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "alias": null
+        }
+      ]
+    }
+  },
+  "functions": [
+    {
+      "name": "remove_readonly",
+      "signature": "remove_readonly(func, path, _)",
+      "lineno": 42,
+      "docstring": "Windows\uc5d0\uc11c \uc0ad\uc81c \ubd88\uac00 \ud30c\uc77c \uac15\uc81c \uc0ad\uc81c",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\convert.py"
+    },
+    {
+      "name": "clone_repo",
+      "signature": "clone_repo(repo_url, pat, target_dir)",
+      "lineno": 47,
+      "docstring": null,
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\convert.py"
+    },
+    {
+      "name": "is_ignored",
+      "signature": "is_ignored(path, names)",
+      "lineno": 61,
+      "docstring": null,
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\convert.py"
+    },
+    {
+      "name": "merge_files",
+      "signature": "merge_files(source_dir, output_file)",
+      "lineno": 70,
+      "docstring": null,
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\convert.py"
+    },
+    {
+      "name": "main",
+      "signature": "main()",
+      "lineno": 103,
+      "docstring": null,
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\convert.py"
+    },
+    {
+      "name": "normalize_content",
+      "signature": "normalize_content(content)",
+      "lineno": 11,
+      "docstring": "\ube44\uad50\ub97c \uc704\ud574 \uc904\ubc14\uafc8 \ubb38\uc790\ub97c \ud1b5\uc77c\ud558\uace0 \uc591\ub05d \uacf5\ubc31\uc744 \uc81c\uac70\ud569\ub2c8\ub2e4.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\revert.py"
+    },
+    {
+      "name": "restore_if_changed",
+      "signature": "restore_if_changed()",
+      "lineno": 19,
+      "docstring": null,
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\revert.py"
+    },
+    {
+      "name": "dispatch",
+      "signature": "dispatch(registry, action, params)",
+      "lineno": 10,
+      "docstring": "Unified administration console for MCP Vault.\nActions:\n- list_servers: List all upstream servers and status.\n- list_tools: Show detailed tools for a server (params: {'server_name': '...'}).\n- search: Search tools by keyword (params: {'query': '...'}).\n- toggle_server: Enable/disable server (params: {'server_name': '...', 'enabled': bool}).\n- toggle_tool: Enable/disable tool (params: {'server_name': '...', 'tool_name': '...', 'enabled': bool}).",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\admin.py"
+    },
+    {
+      "name": "_get_timeout",
+      "signature": "_get_timeout(env_var, default)",
+      "lineno": 9,
+      "docstring": "Safely parse timeout from environment variable.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\constants.py"
+    },
+    {
+      "name": "_build_compact_context",
+      "signature": "_build_compact_context(servers, registry)",
+      "lineno": 9,
+      "docstring": "Generate compact context summary to reduce token overhead (~60-80% reduction).",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\context.py"
+    },
+    {
+      "name": "_build_detailed_context",
+      "signature": "_build_detailed_context(servers, registry)",
+      "lineno": 31,
+      "docstring": "Generate detailed context with all tool names and complete instructions.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\context.py"
+    },
+    {
+      "name": "get_initial_context",
+      "signature": "get_initial_context(registry, force, detailed)",
+      "lineno": 59,
+      "docstring": "[System Start] Initializes the session.\nReturns a summary of available tools to save tokens and prevent truncation.\n\nArgs:\n    registry: The ToolRegistry instance\n    force: Bypass valve cache if True\n    detailed: If True, returns full tool listings and instructions.\n              If False (default), returns compact summary to reduce token overhead (~60-80% reduction).",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\context.py"
+    },
+    {
+      "name": "read_file",
+      "signature": "read_file(path)",
+      "lineno": 12,
+      "docstring": "Reads a file from the project root.\n\nArgs:\n    path: Relative path to the file\n\nReturns:\n    File contents or error message",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\file_utils.py"
+    },
+    {
+      "name": "list_directory",
+      "signature": "list_directory(path)",
+      "lineno": 40,
+      "docstring": "Lists files in a directory.\n\nArgs:\n    path: Relative path to the directory (default: current directory)\n\nReturns:\n    List of file names or error message",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\file_utils.py"
+    },
+    {
+      "name": "get_platform_info",
+      "signature": "get_platform_info()",
+      "lineno": 229,
+      "docstring": "Get the global PlatformInfo instance.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_abstraction.py"
+    },
+    {
+      "name": "get_desktop_path",
+      "signature": "get_desktop_path()",
+      "lineno": 18,
+      "docstring": "Get the actual Desktop directory path for the current platform.\n\nHandles:\n- Windows OneDrive Desktop redirect via registry\n- macOS ~/Desktop\n- Linux XDG Desktop directory",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+    },
+    {
+      "name": "_get_windows_desktop",
+      "signature": "_get_windows_desktop()",
+      "lineno": 37,
+      "docstring": "Get Windows Desktop path, handling OneDrive redirect.\n\nChecks registry key: HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders\\Desktop\nFalls back to USERPROFILE\\Desktop if registry query fails.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+    },
+    {
+      "name": "_get_linux_desktop",
+      "signature": "_get_linux_desktop()",
+      "lineno": 79,
+      "docstring": "Get Linux Desktop path using XDG user directories.\n\nTries xdg-user-dir first, falls back to ~/Desktop.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+    },
+    {
+      "name": "get_applications_path",
+      "signature": "get_applications_path()",
+      "lineno": 100,
+      "docstring": "Get the Applications directory for system menu integration.\n\nReturns:\n- Windows: Start Menu Programs folder\n- macOS: ~/Applications or /Applications\n- Linux: ~/.local/share/applications",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+    },
+    {
+      "name": "create_launcher",
+      "signature": "create_launcher(name, target, icon, hidden_window, arguments)",
+      "lineno": 122,
+      "docstring": "Create a platform-appropriate launcher/shortcut.\n\nArgs:\n    name: Name of the launcher (without extension)\n    target: Target executable or script path\n    icon: Optional icon path\n    hidden_window: If True, launch with minimized/hidden window\n    arguments: Optional command-line arguments for the target\n\nReturns:\n    Path to the created launcher file\n\nRaises:\n    OSError: If launcher creation fails on the current platform",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+    },
+    {
+      "name": "_create_windows_shortcut",
+      "signature": "_create_windows_shortcut(name, target, icon, hidden_window, arguments)",
+      "lineno": 155,
+      "docstring": "Create Windows .lnk shortcut using PowerShell.\n\nHandles OneDrive Desktop redirect automatically via get_desktop_path().",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+    },
+    {
+      "name": "_create_macos_launcher",
+      "signature": "_create_macos_launcher(name, target, icon, hidden_window, arguments)",
+      "lineno": 236,
+      "docstring": "Create macOS launcher as .command file or .app bundle.\n\nFor simplicity, creates a .command file in ~/Applications or Desktop.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+    },
+    {
+      "name": "_create_linux_desktop_file",
+      "signature": "_create_linux_desktop_file(name, target, icon, hidden_window, arguments)",
+      "lineno": 282,
+      "docstring": "Create Linux .desktop file (XDG standard).\n\nCreates in XDG Desktop directory for desktop visibility.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_utils.py"
+    },
+    {
+      "name": "run_tool",
+      "signature": "run_tool(registry, tool_name, args)",
+      "lineno": 13,
+      "docstring": "Executes ANY tool from the available list.\nSmart Router: Automatically finds the correct server for the tool.\n\nArgs:\n    registry: The ToolRegistry instance containing tool mappings\n    tool_name: Name of the tool to execute\n    args: Arguments to pass to the tool (optional)\n\nReturns:\n    Tool execution result or error message",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\routing.py"
+    },
+    {
+      "name": "server_lifespan",
+      "signature": "server_lifespan(app)",
+      "lineno": 25,
+      "docstring": "Server lifespan for eager registry initialization at startup.\nInitializes the ToolRegistry in the background before serving any requests to avoid blocking startup.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\server.py"
+    },
+    {
+      "name": "get_initial_context",
+      "signature": "get_initial_context(force, detailed)",
+      "lineno": 47,
+      "docstring": "[System Start] Initializes the session.\nReturns a summary of available tools to save tokens and prevent truncation.\n\nArgs:\n    force: Bypass valve cache if True\n    detailed: If True, returns full tool listings and instructions.\n              If False (default), returns compact summary to reduce token overhead (~60-80% reduction).",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\server.py"
+    },
+    {
+      "name": "mcpv_admin",
+      "signature": "mcpv_admin(action, params)",
+      "lineno": 61,
+      "docstring": "Unified administration console for MCP Vault.\nActions:\n- list_servers: List all upstream servers and status.\n- list_tools: Show detailed tools for a server (params: {'server_name': '...'}).\n- search: Search tools by keyword (params: {'query': '...'}).\n- toggle_server: Enable/disable server (params: {'server_name': '...', 'enabled': bool}).\n- toggle_tool: Enable/disable tool (params: {'server_name': '...', 'tool_name': '...', 'enabled': bool}).",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\server.py"
+    },
+    {
+      "name": "run_tool",
+      "signature": "run_tool(tool_name, args)",
+      "lineno": 75,
+      "docstring": "Executes ANY tool from the available list.\nSmart Router: Automatically finds the correct server for the tool.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\server.py"
+    },
+    {
+      "name": "read_file",
+      "signature": "read_file(path)",
+      "lineno": 84,
+      "docstring": "Reads a file from the project root.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\server.py"
+    },
+    {
+      "name": "list_directory",
+      "signature": "list_directory(path)",
+      "lineno": 90,
+      "docstring": "Lists files in a directory.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\server.py"
+    },
+    {
+      "name": "test_constants_module_exists",
+      "signature": "test_constants_module_exists()",
+      "lineno": 8,
+      "docstring": "Test that src/mcpv/constants.py module exists",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_baseline_modernization.py"
+    },
+    {
+      "name": "test_required_constants_exist",
+      "signature": "test_required_constants_exist()",
+      "lineno": 16,
+      "docstring": "Test that all required constants exist in constants module",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_baseline_modernization.py"
+    },
+    {
+      "name": "test_server_functions_have_type_hints",
+      "signature": "test_server_functions_have_type_hints()",
+      "lineno": 51,
+      "docstring": "Test that server.py functions have proper type hints",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_baseline_modernization.py"
+    },
+    {
+      "name": "test_server_imports_from_constants",
+      "signature": "test_server_imports_from_constants()",
+      "lineno": 99,
+      "docstring": "Test that server.py imports from constants module instead of using hardcoded strings",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_baseline_modernization.py"
+    },
+    {
+      "name": "test_mutable_default_arguments_fixed",
+      "signature": "test_mutable_default_arguments_fixed()",
+      "lineno": 156,
+      "docstring": "Test that server.py functions don't use mutable default arguments",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_baseline_modernization.py"
+    },
+    {
+      "name": "_get_server_source",
+      "signature": "_get_server_source()",
+      "lineno": 13,
+      "docstring": "Helper to safely get server.py source code.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+    },
+    {
+      "name": "_parse_server_ast",
+      "signature": "_parse_server_ast()",
+      "lineno": 19,
+      "docstring": "Helper to parse server.py into an AST.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+    },
+    {
+      "name": "test_imports_tool_registry_from_registry_module",
+      "signature": "test_imports_tool_registry_from_registry_module()",
+      "lineno": 24,
+      "docstring": "1. Verify server.py imports ToolRegistry from a new registry module.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+    },
+    {
+      "name": "test_tool_registry_is_instantiated",
+      "signature": "test_tool_registry_is_instantiated()",
+      "lineno": 43,
+      "docstring": "4. Verify ToolRegistry is properly instantiated at module level.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+    },
+    {
+      "name": "test_fastmcp_lifecycle_calls_initialize",
+      "signature": "test_fastmcp_lifecycle_calls_initialize()",
+      "lineno": 58,
+      "docstring": "5. Verify FastMCP lifespan calls registry.initialize().",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+    },
+    {
+      "name": "test_tool_functions_are_re_exported",
+      "signature": "test_tool_functions_are_re_exported()",
+      "lineno": 83,
+      "docstring": "3. Verify all tool functions are re-exported at module level for backward compatibility.",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+    },
+    {
+      "name": "test_delegate_functions_are_thin_wrappers",
+      "signature": "test_delegate_functions_are_thin_wrappers()",
+      "lineno": 101,
+      "docstring": "2. Verify server.py is a thin facade (delegate functions are thin wrappers).",
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_server_facade_refactor.py"
+    }
+  ],
+  "classes": [
+    {
+      "name": "PlatformInfo",
+      "lineno": 16,
+      "docstring": "Provides platform-specific information and utilities.",
+      "methods": [
+        {
+          "name": "__init__",
+          "signature": "__init__(self)",
+          "lineno": 19
+        },
+        {
+          "name": "is_windows",
+          "signature": "is_windows(self)",
+          "lineno": 26
+        },
+        {
+          "name": "is_macos",
+          "signature": "is_macos(self)",
+          "lineno": 31
+        },
+        {
+          "name": "is_linux",
+          "signature": "is_linux(self)",
+          "lineno": 36
+        },
+        {
+          "name": "platform_name",
+          "signature": "platform_name(self)",
+          "lineno": 41
+        },
+        {
+          "name": "get_appdata_path",
+          "signature": "get_appdata_path(self)",
+          "lineno": 51
+        },
+        {
+          "name": "get_config_dir",
+          "signature": "get_config_dir(self)",
+          "lineno": 72
+        },
+        {
+          "name": "get_executable_name",
+          "signature": "get_executable_name(self, base_name)",
+          "lineno": 80
+        },
+        {
+          "name": "get_script_extension",
+          "signature": "get_script_extension(self)",
+          "lineno": 93
+        },
+        {
+          "name": "get_shell_command",
+          "signature": "get_shell_command(self)",
+          "lineno": 102
+        },
+        {
+          "name": "get_process_kwargs",
+          "signature": "get_process_kwargs(self)",
+          "lineno": 113
+        },
+        {
+          "name": "get_antigravity_exe_path",
+          "signature": "get_antigravity_exe_path(self)",
+          "lineno": 128
+        },
+        {
+          "name": "get_booster_script_name",
+          "signature": "get_booster_script_name(self)",
+          "lineno": 150
+        },
+        {
+          "name": "get_desktop_path",
+          "signature": "get_desktop_path(self)",
+          "lineno": 159
+        },
+        {
+          "name": "get_applications_path",
+          "signature": "get_applications_path(self)",
+          "lineno": 169
+        },
+        {
+          "name": "run_shell_command",
+          "signature": "run_shell_command(self, command, capture)",
+          "lineno": 190
+        }
+      ],
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\platform_abstraction.py"
+    },
+    {
+      "name": "ToolRegistry",
+      "lineno": 23,
+      "docstring": "Encapsulates tool registry logic, providing async initialization and dict-like access.",
+      "methods": [
+        {
+          "name": "__init__",
+          "signature": "__init__(self)",
+          "lineno": 26
+        },
+        {
+          "name": "_build_registry",
+          "signature": "_build_registry(self, force)",
+          "lineno": 31
+        },
+        {
+          "name": "initialize",
+          "signature": "initialize(self, force)",
+          "lineno": 122
+        },
+        {
+          "name": "get_registry",
+          "signature": "get_registry(self)",
+          "lineno": 136
+        },
+        {
+          "name": "__iter__",
+          "signature": "__iter__(self)",
+          "lineno": 141
+        },
+        {
+          "name": "__len__",
+          "signature": "__len__(self)",
+          "lineno": 144
+        },
+        {
+          "name": "__getitem__",
+          "signature": "__getitem__(self, key)",
+          "lineno": 147
+        },
+        {
+          "name": "__contains__",
+          "signature": "__contains__(self, key)",
+          "lineno": 150
+        },
+        {
+          "name": "keys",
+          "signature": "keys(self)",
+          "lineno": 153
+        },
+        {
+          "name": "values",
+          "signature": "values(self)",
+          "lineno": 156
+        },
+        {
+          "name": "items",
+          "signature": "items(self)",
+          "lineno": 159
+        }
+      ],
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\registry.py"
+    },
+    {
+      "name": "VaultManager",
+      "lineno": 40,
+      "docstring": null,
+      "methods": [
+        {
+          "name": "__init__",
+          "signature": "__init__(self)",
+          "lineno": 41
+        },
+        {
+          "name": "install",
+          "signature": "install(self, force)",
+          "lineno": 48
+        },
+        {
+          "name": "_hijack_config",
+          "signature": "_hijack_config(self, force)",
+          "lineno": 64
+        },
+        {
+          "name": "_install_booster",
+          "signature": "_install_booster(self)",
+          "lineno": 158
+        },
+        {
+          "name": "_create_shortcut",
+          "signature": "_create_shortcut(self, target, name, icon)",
+          "lineno": 205
+        },
+        {
+          "name": "_create_shortcut_windows_only",
+          "signature": "_create_shortcut_windows_only(self, target, name, icon)",
+          "lineno": 221
+        },
+        {
+          "name": "get_session",
+          "signature": "get_session(self, server_name)",
+          "lineno": 252
+        },
+        {
+          "name": "cleanup",
+          "signature": "cleanup(self)",
+          "lineno": 338
+        },
+        {
+          "name": "update_config",
+          "signature": "update_config(self, server_name, key, value)",
+          "lineno": 341
+        },
+        {
+          "name": "update_disabled_tools",
+          "signature": "update_disabled_tools(self, server_name, tool_name, disabled)",
+          "lineno": 360
+        }
+      ],
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\src\\mcpv\\vault.py"
+    },
+    {
+      "name": "TestRegistryIdempotIdempotency",
+      "lineno": 13,
+      "docstring": "Tests for _build_registry idempotency and thread-safety.",
+      "methods": [
+        {
+          "name": "test_build_registry_is_idempotent",
+          "signature": "test_build_registry_is_idempotent(self)",
+          "lineno": 17
+        },
+        {
+          "name": "test_build_registry_fast_path",
+          "signature": "test_build_registry_fast_path(self)",
+          "lineno": 67
+        },
+        {
+          "name": "test_build_registry_thread_safe",
+          "signature": "test_build_registry_thread_safe(self)",
+          "lineno": 99
+        }
+      ],
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py"
+    },
+    {
+      "name": "TestStartupInitialization",
+      "lineno": 139,
+      "docstring": "Tests for startup initialization behavior.",
+      "methods": [
+        {
+          "name": "test_on_startup_initializes_registry",
+          "signature": "test_on_startup_initializes_registry(self)",
+          "lineno": 143
+        },
+        {
+          "name": "test_startup_failure_does_not_crash_server",
+          "signature": "test_startup_failure_does_not_crash_server(self)",
+          "lineno": 180
+        }
+      ],
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py"
+    },
+    {
+      "name": "TestGetInitialContextCompactMode",
+      "lineno": 223,
+      "docstring": "Tests for get_initial_context compact mode.",
+      "methods": [
+        {
+          "name": "test_get_initial_context_returns_compact_summary",
+          "signature": "test_get_initial_context_returns_compact_summary(self)",
+          "lineno": 227
+        },
+        {
+          "name": "test_get_initial_context_detailed_mode_returns_full_info",
+          "signature": "test_get_initial_context_detailed_mode_returns_full_info(self)",
+          "lineno": 259
+        }
+      ],
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py"
+    },
+    {
+      "name": "TestToolRoutingWithoutExplicitCall",
+      "lineno": 284,
+      "docstring": "Tests for tool routing without explicit get_initial_context call.",
+      "methods": [
+        {
+          "name": "test_run_tool_works_without_explicit_initial_context_call",
+          "signature": "test_run_tool_works_without_explicit_initial_context_call(self)",
+          "lineno": 288
+        },
+        {
+          "name": "test_run_tool_buildsari_if_not_initialized",
+          "signature": "test_run_tool_buildsari_if_not_initialized(self)",
+          "lineno": 321
+        }
+      ],
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py"
+    },
+    {
+      "name": "TestBackwardCompatibility",
+      "lineno": 360,
+      "docstring": "Tests for backward compatibility with existing clients.",
+      "methods": [
+        {
+          "name": "test_get_initial_context_still_works_with_force_parameter",
+          "signature": "test_get_initial_context_still_works_with_force_parameter(self)",
+          "lineno": 364
+        },
+        {
+          "name": "test_get_initial_context_returns_instructions_on_empty_registry",
+          "signature": "test_get_initial_context_returns_instructions_on_empty_registry(self)",
+          "lineno": 380
+        }
+      ],
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py"
+    },
+    {
+      "name": "TestPlatformInfo",
+      "lineno": 24,
+      "docstring": "Test cases for PlatformInfo class.",
+      "methods": [
+        {
+          "name": "setUp",
+          "signature": "setUp(self)",
+          "lineno": 27
+        },
+        {
+          "name": "test_platform_detection",
+          "signature": "test_platform_detection(self)",
+          "lineno": 31
+        },
+        {
+          "name": "test_windows_platform_detection",
+          "signature": "test_windows_platform_detection(self)",
+          "lineno": 45
+        },
+        {
+          "name": "test_macos_platform_detection",
+          "signature": "test_macos_platform_detection(self)",
+          "lineno": 54
+        },
+        {
+          "name": "test_linux_platform_detection",
+          "signature": "test_linux_platform_detection(self)",
+          "lineno": 63
+        },
+        {
+          "name": "test_windows_appdata_path",
+          "signature": "test_windows_appdata_path(self)",
+          "lineno": 73
+        },
+        {
+          "name": "test_macos_appdata_path",
+          "signature": "test_macos_appdata_path(self, mock_home)",
+          "lineno": 82
+        },
+        {
+          "name": "test_linux_appdata_path",
+          "signature": "test_linux_appdata_path(self, mock_home)",
+          "lineno": 93
+        },
+        {
+          "name": "test_windows_executable_name",
+          "signature": "test_windows_executable_name(self)",
+          "lineno": 103
+        },
+        {
+          "name": "test_macos_executable_name",
+          "signature": "test_macos_executable_name(self)",
+          "lineno": 111
+        },
+        {
+          "name": "test_linux_executable_name",
+          "signature": "test_linux_executable_name(self)",
+          "lineno": 118
+        },
+        {
+          "name": "test_windows_script_extension",
+          "signature": "test_windows_script_extension(self)",
+          "lineno": 125
+        },
+        {
+          "name": "test_macos_script_extension",
+          "signature": "test_macos_script_extension(self)",
+          "lineno": 131
+        },
+        {
+          "name": "test_linux_script_extension",
+          "signature": "test_linux_script_extension(self)",
+          "lineno": 137
+        },
+        {
+          "name": "test_windows_shell_command",
+          "signature": "test_windows_shell_command(self)",
+          "lineno": 143
+        },
+        {
+          "name": "test_macos_shell_command",
+          "signature": "test_macos_shell_command(self)",
+          "lineno": 149
+        },
+        {
+          "name": "test_linux_shell_command",
+          "signature": "test_linux_shell_command(self)",
+          "lineno": 155
+        },
+        {
+          "name": "test_windows_process_kwargs",
+          "signature": "test_windows_process_kwargs(self)",
+          "lineno": 161
+        },
+        {
+          "name": "test_macos_process_kwargs",
+          "signature": "test_macos_process_kwargs(self)",
+          "lineno": 170
+        },
+        {
+          "name": "test_linux_process_kwargs",
+          "signature": "test_linux_process_kwargs(self)",
+          "lineno": 177
+        },
+        {
+          "name": "test_windows_antigravity_exe_path",
+          "signature": "test_windows_antigravity_exe_path(self)",
+          "lineno": 185
+        },
+        {
+          "name": "test_macos_antigravity_exe_path",
+          "signature": "test_macos_antigravity_exe_path(self)",
+          "lineno": 193
+        },
+        {
+          "name": "test_linux_antigravity_exe_path",
+          "signature": "test_linux_antigravity_exe_path(self)",
+          "lineno": 202
+        },
+        {
+          "name": "test_windows_booster_script_name",
+          "signature": "test_windows_booster_script_name(self)",
+          "lineno": 212
+        },
+        {
+          "name": "test_macos_booster_script_name",
+          "signature": "test_macos_booster_script_name(self)",
+          "lineno": 218
+        },
+        {
+          "name": "test_linux_booster_script_name",
+          "signature": "test_linux_booster_script_name(self)",
+          "lineno": 224
+        },
+        {
+          "name": "test_config_dir",
+          "signature": "test_config_dir(self)",
+          "lineno": 229
+        },
+        {
+          "name": "test_global_instance",
+          "signature": "test_global_instance(self)",
+          "lineno": 236
+        },
+        {
+          "name": "test_get_platform_info",
+          "signature": "test_get_platform_info(self)",
+          "lineno": 240
+        }
+      ],
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py"
+    },
+    {
+      "name": "TestPlatformIntegration",
+      "lineno": 247,
+      "docstring": "Integration tests for platform_abstraction with actual system.",
+      "methods": [
+        {
+          "name": "test_actual_platform_detection",
+          "signature": "test_actual_platform_detection(self)",
+          "lineno": 250
+        },
+        {
+          "name": "test_actual_paths_exist",
+          "signature": "test_actual_paths_exist(self)",
+          "lineno": 258
+        },
+        {
+          "name": "test_actual_shell_command",
+          "signature": "test_actual_shell_command(self)",
+          "lineno": 268
+        }
+      ],
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py"
+    },
+    {
+      "name": "TestBuildRegistryTimeout",
+      "lineno": 13,
+      "docstring": "Tests for _build_registry timeout protection (REQ-01).",
+      "methods": [
+        {
+          "name": "test_build_registry_does_not_hang_on_slow_server",
+          "signature": "test_build_registry_does_not_hang_on_slow_server(self)",
+          "lineno": 17
+        },
+        {
+          "name": "test_build_registry_continues_after_server_timeout",
+          "signature": "test_build_registry_continues_after_server_timeout(self)",
+          "lineno": 57
+        }
+      ],
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_timeout_protection.py"
+    },
+    {
+      "name": "TestGetSessionTimeout",
+      "lineno": 95,
+      "docstring": "Tests for get_session timeout protection (REQ-02, REQ-05).",
+      "methods": [
+        {
+          "name": "test_get_session_timeout_on_hanging_initialize",
+          "signature": "test_get_session_timeout_on_hanging_initialize(self)",
+          "lineno": 99
+        },
+        {
+          "name": "test_get_session_returns_none_on_timeout_not_raises",
+          "signature": "test_get_session_returns_none_on_timeout_not_raises(self)",
+          "lineno": 149
+        }
+      ],
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_timeout_protection.py"
+    },
+    {
+      "name": "TestExceptionLogging",
+      "lineno": 178,
+      "docstring": "Tests for proper exception handling (REQ-03, REQ-04).",
+      "methods": [
+        {
+          "name": "test_bare_except_pass_replaced_with_logging",
+          "signature": "test_bare_except_pass_replaced_with_logging(self)",
+          "lineno": 182
+        },
+        {
+          "name": "test_bare_except_continue_replaced_with_logging",
+          "signature": "test_bare_except_continue_replaced_with_logging(self)",
+          "lineno": 205
+        }
+      ],
+      "file": "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_timeout_protection.py"
+    }
+  ],
+  "mappings": {
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py:test_get_initial_context_detailed_mode_returns_full_info": [
+      "get_initial_context"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py:test_get_initial_context_still_works_with_force_parameter": [
+      "get_initial_context"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py:test_get_initial_context_returns_instructions_on_empty_registry": [
+      "get_initial_context"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py:test_get_initial_context_returns_compact_summary": [
+      "get_initial_context"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py:test_run_tool_works_without_explicit_initial_context_call": [
+      "run_tool"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py:test_run_tool_buildsari_if_not_initialized": [
+      "run_tool"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py:test_on_startup_initializes_registry": [
+      "server_lifespan"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_auto_initialization.py:test_startup_failure_does_not_crash_server": [
+      "server_lifespan"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:setUp": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_windows_platform_detection": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_macos_platform_detection": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_linux_platform_detection": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_windows_appdata_path": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_macos_appdata_path": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_linux_appdata_path": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_windows_executable_name": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_macos_executable_name": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_linux_executable_name": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_windows_script_extension": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_macos_script_extension": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_linux_script_extension": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_windows_shell_command": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_macos_shell_command": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_linux_shell_command": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_windows_process_kwargs": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_macos_process_kwargs": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_linux_process_kwargs": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_windows_antigravity_exe_path": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_macos_antigravity_exe_path": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_linux_antigravity_exe_path": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_windows_booster_script_name": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_macos_booster_script_name": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_linux_booster_script_name": [
+      "PlatformInfo"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_get_platform_info": [
+      "get_platform_info"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_actual_platform_detection": [
+      "get_platform_info"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_actual_paths_exist": [
+      "get_platform_info"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_platform_abstraction.py:test_actual_shell_command": [
+      "get_platform_info"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_timeout_protection.py:test_get_session_timeout_on_hanging_initialize": [
+      "VaultManager"
+    ],
+    "C:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\tests\\test_timeout_protection.py:test_get_session_returns_none_on_timeout_not_raises": [
+      "VaultManager"
+    ]
+  },
+  "content_hashes": [
+    {
+      "file_path": "check_bytes.py",
+      "hash_value": "2a370090aa02ef343684a3e9ea52fa1827a7bf945633210b39ae5b2deb822f92",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "import:os"
+      ],
+      "created_at": "2026-07-05T20:45:54.093277Z"
+    },
+    {
+      "file_path": "convert.py",
+      "hash_value": "fa3fa092e402ee25c01785620c83388c9b4515252477cf342754fa9924867025",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:remove_readonly",
+        "func:clone_repo",
+        "func:is_ignored",
+        "func:merge_files",
+        "func:main",
+        "import:os",
+        "import:subprocess",
+        "import:shutil",
+        "import:fnmatch",
+        "import:stat"
+      ],
+      "created_at": "2026-07-05T20:45:54.095298Z"
+    },
+    {
+      "file_path": "create_toml.py",
+      "hash_value": "564d42cc957d8e13a9ae15f3987544e1d59a4a251e7452284b907dae09a98590",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "import:os"
+      ],
+      "created_at": "2026-07-05T20:45:54.095298Z"
+    },
+    {
+      "file_path": "force_clean.py",
+      "hash_value": "3ee4fbf72f4cdf5890babb6a33686104c1c149a06b4761d74e5206e36a440c54",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [],
+      "created_at": "2026-07-05T20:45:54.096273Z"
+    },
+    {
+      "file_path": "revert.py",
+      "hash_value": "7ae62aab3f21ace3f811a80e89616fbf1dbd86c3f28ff3e075b0ce91085faf44",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:normalize_content",
+        "func:restore_if_changed",
+        "import:os",
+        "import:re"
+      ],
+      "created_at": "2026-07-05T20:45:54.099276Z"
+    },
+    {
+      "file_path": "search_pat.py",
+      "hash_value": "9c72634a7ef489ce7db71191e01221641d1169871454ac23dbb30cc981a53227",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "import:os",
+        "import:re"
+      ],
+      "created_at": "2026-07-05T20:45:54.100273Z"
+    },
+    {
+      "file_path": "src\\mcpv\\__init__.py",
+      "hash_value": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [],
+      "created_at": "2026-07-05T20:45:54.100777Z"
+    },
+    {
+      "file_path": "src\\mcpv\\__main__.py",
+      "hash_value": "ecab6b650b00e22612808a858d751dbafd985144b9ab415bc420370f19fa1f0f",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "import:.main"
+      ],
+      "created_at": "2026-07-05T20:45:54.101783Z"
+    },
+    {
+      "file_path": "src\\mcpv\\admin.py",
+      "hash_value": "e3bf1e457681c1f0d3c28e7feb93f7d5ed189b2cd758dd9f7f1a2157332de6dc",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "import:json",
+        "import:typing",
+        "import:.",
+        "import:.registry"
+      ],
+      "created_at": "2026-07-05T20:45:54.103790Z"
+    },
+    {
+      "file_path": "src\\mcpv\\constants.py",
+      "hash_value": "2acda35ba75f70859805fef54ebc2cad08d497903716654fa454774dc00297dd",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:_get_timeout",
+        "import:os"
+      ],
+      "created_at": "2026-07-05T20:45:54.105791Z"
+    },
+    {
+      "file_path": "src\\mcpv\\context.py",
+      "hash_value": "ae7e8b356ac69300db91ac48532cb137ea7efa9dc0aa66fcaa9f9f697a403406",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:_build_compact_context",
+        "func:_build_detailed_context",
+        "import:typing",
+        "import:.",
+        "import:.registry"
+      ],
+      "created_at": "2026-07-05T20:45:54.105791Z"
+    },
+    {
+      "file_path": "src\\mcpv\\dashboard.py",
+      "hash_value": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [],
+      "created_at": "2026-07-05T20:45:54.106789Z"
+    },
+    {
+      "file_path": "src\\mcpv\\file_utils.py",
+      "hash_value": "c12ba81aa2b7c9b0b4d83317a631492c9866e3fcdc253e0531abf29fecc55d1d",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:read_file",
+        "func:list_directory",
+        "import:os",
+        "import:."
+      ],
+      "created_at": "2026-07-05T20:45:54.107788Z"
+    },
+    {
+      "file_path": "src\\mcpv\\main.py",
+      "hash_value": "c421fee27564275fd65cbcfd9acdb51fd3fe27f63aca5db7b8a11f50c1187721",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:install",
+        "func:start",
+        "import:asyncio",
+        "import:.vault",
+        "import:.server"
+      ],
+      "created_at": "2026-07-05T20:45:54.108788Z"
+    },
+    {
+      "file_path": "src\\mcpv\\platform_abstraction.py",
+      "hash_value": "b9d9aa2ea1adbfcd21e197e1fa283f71e383ad48490bda036194302438260792",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:__init__",
+        "func:is_windows",
+        "func:is_macos",
+        "func:is_linux",
+        "func:platform_name",
+        "func:get_appdata_path",
+        "func:get_config_dir",
+        "func:get_executable_name",
+        "func:get_script_extension",
+        "func:get_shell_command",
+        "func:get_process_kwargs",
+        "func:get_antigravity_exe_path",
+        "func:get_booster_script_name",
+        "func:get_desktop_path",
+        "func:get_applications_path",
+        "func:run_shell_command",
+        "func:get_platform_info",
+        "class:PlatformInfo",
+        "import:os",
+        "import:sys",
+        "import:platform",
+        "import:subprocess",
+        "import:pathlib",
+        "import:typing"
+      ],
+      "created_at": "2026-07-05T20:45:54.108788Z"
+    },
+    {
+      "file_path": "src\\mcpv\\platform_utils.py",
+      "hash_value": "d84073d510e439f553184adbbf58dd68654dd37f645557bd07371522e0fcc6f8",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:get_desktop_path",
+        "func:_get_windows_desktop",
+        "func:_get_linux_desktop",
+        "func:get_applications_path",
+        "func:create_launcher",
+        "func:_create_windows_shortcut",
+        "func:escape_ps_string",
+        "func:_create_macos_launcher",
+        "func:_create_linux_desktop_file",
+        "func:escape_desktop_value",
+        "import:os",
+        "import:sys",
+        "import:subprocess",
+        "import:platform",
+        "import:pathlib",
+        "import:typing"
+      ],
+      "created_at": "2026-07-05T20:45:54.110294Z"
+    },
+    {
+      "file_path": "src\\mcpv\\registry.py",
+      "hash_value": "4687dd859975c36e76639096dc6599c7e04af73e0fc1558368c9380845af7960",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:__init__",
+        "func:get_registry",
+        "func:__iter__",
+        "func:__len__",
+        "func:__getitem__",
+        "func:__contains__",
+        "func:keys",
+        "func:values",
+        "func:items",
+        "class:ToolRegistry",
+        "import:asyncio",
+        "import:json",
+        "import:logging",
+        "import:pathlib",
+        "import:typing",
+        "import:.",
+        "import:.platform_abstraction",
+        "import:.vault"
+      ],
+      "created_at": "2026-07-05T20:45:54.111300Z"
+    },
+    {
+      "file_path": "src\\mcpv\\routing.py",
+      "hash_value": "ac51f128ad10023d553b4be5acbe1562fe98031c018c99aba183f8ece297b5c7",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "import:typing",
+        "import:.registry",
+        "import:.vault"
+      ],
+      "created_at": "2026-07-05T20:45:54.112630Z"
+    },
+    {
+      "file_path": "src\\mcpv\\server.py",
+      "hash_value": "f1a228f5d4db5d0c9db7ced5f388006f1dfd4f8708b7cc53224628a54dbd7faf",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:read_file",
+        "func:list_directory",
+        "import:asyncio",
+        "import:collections.abc",
+        "import:contextlib",
+        "import:fastmcp",
+        "import:.",
+        "import:.admin",
+        "import:.context",
+        "import:.file_utils",
+        "import:.registry",
+        "import:.routing"
+      ],
+      "created_at": "2026-07-05T20:45:54.113640Z"
+    },
+    {
+      "file_path": "src\\mcpv\\valve.py",
+      "hash_value": "6ab4452b0592eacd072a697121a307620cb2c2c8802553ae68953dba90239d80",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:__init__",
+        "func:check"
+      ],
+      "created_at": "2026-07-05T20:45:54.114639Z"
+    },
+    {
+      "file_path": "src\\mcpv\\vault.py",
+      "hash_value": "1879bc3fdfd1a7f56de0e98ba0bc2f69122fecde6206529418db0529adec5862",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:__init__",
+        "func:install",
+        "func:_hijack_config",
+        "func:_install_booster",
+        "func:_create_shortcut",
+        "func:_create_shortcut_windows_only",
+        "func:update_config",
+        "func:update_disabled_tools",
+        "class:VaultManager",
+        "import:json",
+        "import:sys",
+        "import:shutil",
+        "import:os",
+        "import:subprocess",
+        "import:asyncio",
+        "import:pathlib",
+        "import:mcp.client.session",
+        "import:mcp.client.stdio",
+        "import:contextlib",
+        "import:.",
+        "import:.platform_abstraction"
+      ],
+      "created_at": "2026-07-05T20:45:54.117636Z"
+    },
+    {
+      "file_path": "tests\\test_auto_initialization.py",
+      "hash_value": "94e5685cb6183f36db3d7feba14e2f94395628a9db8b801a1338d5b344d2bcf8",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "class:TestRegistryIdempotIdempotency",
+        "class:TestStartupInitialization",
+        "class:TestGetInitialContextCompactMode",
+        "class:TestToolRoutingWithoutExplicitCall",
+        "class:TestBackwardCompatibility",
+        "import:asyncio",
+        "import:pytest",
+        "import:json",
+        "import:unittest.mock",
+        "import:pathlib"
+      ],
+      "created_at": "2026-07-05T20:45:54.120142Z"
+    },
+    {
+      "file_path": "tests\\test_baseline_modernization.py",
+      "hash_value": "97eddece6da7f492da440d3a230fea935eead2530050d37184bd87edaa384c86",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:test_constants_module_exists",
+        "func:test_required_constants_exist",
+        "func:test_server_functions_have_type_hints",
+        "func:test_server_imports_from_constants",
+        "func:test_mutable_default_arguments_fixed",
+        "import:pytest",
+        "import:importlib",
+        "import:inspect",
+        "import:os",
+        "import:pathlib"
+      ],
+      "created_at": "2026-07-05T20:45:54.121147Z"
+    },
+    {
+      "file_path": "tests\\test_platform_abstraction.py",
+      "hash_value": "e7f6fb1c287895af6351487dfc9cb2a7adff69b34c26d0afc48f7e17947c3eeb",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:setUp",
+        "func:test_platform_detection",
+        "func:test_windows_platform_detection",
+        "func:test_macos_platform_detection",
+        "func:test_linux_platform_detection",
+        "func:test_windows_appdata_path",
+        "func:test_macos_appdata_path",
+        "func:test_linux_appdata_path",
+        "func:test_windows_executable_name",
+        "func:test_macos_executable_name",
+        "func:test_linux_executable_name",
+        "func:test_windows_script_extension",
+        "func:test_macos_script_extension",
+        "func:test_linux_script_extension",
+        "func:test_windows_shell_command",
+        "func:test_macos_shell_command",
+        "func:test_linux_shell_command",
+        "func:test_windows_process_kwargs",
+        "func:test_macos_process_kwargs",
+        "func:test_linux_process_kwargs",
+        "func:test_windows_antigravity_exe_path",
+        "func:test_macos_antigravity_exe_path",
+        "func:test_linux_antigravity_exe_path",
+        "func:test_windows_booster_script_name",
+        "func:test_macos_booster_script_name",
+        "func:test_linux_booster_script_name",
+        "func:test_config_dir",
+        "func:test_global_instance",
+        "func:test_get_platform_info",
+        "func:test_actual_platform_detection",
+        "func:test_actual_paths_exist",
+        "func:test_actual_shell_command",
+        "class:TestPlatformInfo",
+        "class:TestPlatformIntegration",
+        "import:os",
+        "import:sys",
+        "import:unittest",
+        "import:unittest.mock",
+        "import:pathlib",
+        "import:mcpv.platform_abstraction"
+      ],
+      "created_at": "2026-07-05T20:45:54.122150Z"
+    },
+    {
+      "file_path": "tests\\test_server_facade_refactor.py",
+      "hash_value": "167405b785b4251db3f3d7693e5cc7aee445d425b73e69dd218997b7491a5d5d",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "func:_get_server_source",
+        "func:_parse_server_ast",
+        "func:test_imports_tool_registry_from_registry_module",
+        "func:test_tool_registry_is_instantiated",
+        "func:test_fastmcp_lifecycle_calls_initialize",
+        "func:test_tool_functions_are_re_exported",
+        "func:test_delegate_functions_are_thin_wrappers",
+        "import:ast",
+        "import:inspect",
+        "import:sys",
+        "import:unittest.mock",
+        "import:pytest"
+      ],
+      "created_at": "2026-07-05T20:45:54.124193Z"
+    },
+    {
+      "file_path": "tests\\test_timeout_protection.py",
+      "hash_value": "1535982b000079f4aaa4ee03cf5321b4ca45e34a9d52fb7e4d218dd41a47f2d7",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "class:TestBuildRegistryTimeout",
+        "class:TestGetSessionTimeout",
+        "class:TestExceptionLogging",
+        "import:asyncio",
+        "import:pytest",
+        "import:json",
+        "import:unittest.mock",
+        "import:pathlib"
+      ],
+      "created_at": "2026-07-05T20:45:54.125179Z"
+    },
+    {
+      "file_path": "validate_toml.py",
+      "hash_value": "2aa814508eb879cddf350665521d7d5caa45718f2edea92fd4961f4c618ea7d7",
+      "hash_algorithm": "sha256",
+      "semantic_markers": [
+        "import:tomllib",
+        "import:sys"
+      ],
+      "created_at": "2026-07-05T20:45:54.126174Z"
+    }
+  ],
+  "shadow_mode": false
+}

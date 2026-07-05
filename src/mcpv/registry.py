@@ -28,33 +28,37 @@ class ToolRegistry:
         self._initialized: bool = False
         self._registry_lock = asyncio.Lock()
 
-    async def _build_registry(self) -> None:
+    async def _build_registry(self, force: bool = False) -> None:
         """Builds tool map by scanning upstream servers. Uses local cache if available.
         
         This function is idempotent and thread-safe. Multiple concurrent calls will
         only trigger one actual registry build. Subsequent calls will wait for the
         first call to complete or return immediately if already initialized.
         """
-        # Fast path: if already initialized, return immediately (idempotency)
-        if self._initialized and self.TOOL_REGISTRY:
+        # Fast path: if already initialized and not forced, return immediately
+        if not force and self._initialized and self.TOOL_REGISTRY:
             logger.debug("Registry already initialized, skipping rebuild")
             return
         
         # Acquire lock to prevent concurrent builds (thread safety)
         async with self._registry_lock:
             # Double-check after acquiring lock (another thread might have initialized)
-            if self._initialized and self.TOOL_REGISTRY:
+            if not force and self._initialized and self.TOOL_REGISTRY:
                 logger.debug("Registry initialized while waiting for lock, skipping rebuild")
                 return
             
             from .vault import BACKUP_FILE
             
-            # 1. Try local cache first
-            if not self.TOOL_REGISTRY and TOOL_INDEX_FILE.exists():
+            # 1. Try local cache first (if not forced)
+            if not force and not self.TOOL_REGISTRY and TOOL_INDEX_FILE.exists():
                 try:
                     with open(TOOL_INDEX_FILE, "r", encoding="utf-8") as f:
-                        self.TOOL_REGISTRY = json.load(f)
-                    logger.info("⚡ Tool Registry loaded from local cache.")
+                        cache = json.load(f)
+                    if cache:
+                        self.TOOL_REGISTRY = cache
+                        self._initialized = True
+                        logger.info("⚡ Tool Registry loaded from local cache.")
+                        return
                 except (json.JSONDecodeError, OSError) as e:
                     logger.warning(f"Failed to load tool cache: {e}")
 
@@ -115,17 +119,17 @@ class ToolRegistry:
                     logger.warning(f"Failed to save tool cache: {e}")
                 logger.info(f"🗺️ Tool Registry Rebuilt and Cached: {len(self.TOOL_REGISTRY)} tools found.")
 
-    async def initialize(self) -> None:
+    async def initialize(self, force: bool = False) -> None:
         """Initialize the registry by calling _build_registry if not already done."""
-        if not self._initialized:
+        if force or not self._initialized:
             try:
-                await asyncio.wait_for(self._build_registry(), timeout=REGISTRY_INIT_TIMEOUT)
+                await asyncio.wait_for(self._build_registry(force), timeout=REGISTRY_INIT_TIMEOUT)
                 self._initialized = True
-                logger.info("✅ [MCPV] Tool registry initialized successfully at startup")
+                logger.info("✅ [MCPV] Tool registry initialized successfully")
             except asyncio.TimeoutError:
-                logger.warning("⏱️ [MCPV] Timeout occurred while building registry at startup - will initialize on first call")
+                logger.warning("⏱️ [MCPV] Timeout occurred while building registry")
             except Exception as e:
-                logger.error(f"❌ [MCPV] Failed to initialize registry at startup: {e}")
+                logger.error(f"❌ [MCPV] Failed to initialize registry: {e}")
                 # Continue even if registry fails - graceful degradation
                 pass
 

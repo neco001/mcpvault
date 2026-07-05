@@ -1,0 +1,21 @@
+2026-07-05 18:24:13,848 - __main__ - INFO - Qwen MCP Server starting - logs will be written to .qwen\server.log
+2026-07-05 18:24:14,241 - qwen_mcp.tools.qdrant - INFO - ✅ Qdrant tools registered successfully
+2026-07-05 18:24:14,374 - qwen_mcp.specter.hud - ERROR - Failed to start telemetry server: Config.__init__() got an unexpected keyword argument 'install_signal_handlers'
+2026-07-05 18:24:14,375 - qwen_mcp.specter.hud - INFO - HUD Telemetry server started on 127.0.0.1:8878 (Background Thread)
+2026-07-05 18:24:14,460 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2026-07-05 18:24:14,484 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2026-07-05 18:24:14,489 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2026-07-05 18:29:30,658 - __main__ - INFO - Qwen MCP Server starting - logs will be written to .qwen\server.log
+2026-07-05 18:29:30,826 - qwen_mcp.tools.qdrant - INFO - ✅ Qdrant tools registered successfully
+2026-07-05 18:29:30,940 - qwen_mcp.specter.hud - ERROR - Failed to start telemetry server: Config.__init__() got an unexpected keyword argument 'install_signal_handlers'
+2026-07-05 18:29:30,940 - qwen_mcp.specter.hud - INFO - HUD Telemetry server started on 127.0.0.1:8878 (Background Thread)
+2026-07-05 18:29:30,968 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2026-07-05 18:29:30,985 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2026-07-05 18:29:30,991 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2026-07-05 19:43:04,934 - __main__ - INFO - Qwen MCP Server starting - logs will be written to .qwen\server.log
+2026-07-05 19:43:05,064 - qwen_mcp.tools.qdrant - INFO - ✅ Qdrant tools registered successfully
+2026-07-05 19:43:05,182 - qwen_mcp.specter.hud - ERROR - Failed to start telemetry server: Config.__init__() got an unexpected keyword argument 'install_signal_handlers'
+2026-07-05 19:43:05,182 - qwen_mcp.specter.hud - INFO - HUD Telemetry server started on 127.0.0.1:8878 (Background Thread)
+2026-07-05 19:43:05,201 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2026-07-05 19:43:05,207 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2026-07-05 19:43:05,208 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest

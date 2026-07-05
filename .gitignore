@@ -10,4 +10,5 @@ env/
 .env
 upload.ps1
 tool_index.json
-PLAN/
+PLAN/qdrant_index.toml
+qdrant_index.toml

@@ -1,0 +1,52 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"projectColors.mainColor": "#e73b18",
+		"window.title": "c:\\Repos\\_Toolbox\\mcp_servers\\mcpvault\\mcpvault.code-workspace",
+		"workbench.colorCustomizations": {
+			"[Vira*]": {},
+			"statusBarItem.warningBackground": "#e73b18",
+			"statusBarItem.warningForeground": "#ffffff",
+			"statusBarItem.warningHoverBackground": "#e73b18",
+			"statusBarItem.warningHoverForeground": "#ffffff90",
+			"statusBarItem.remoteBackground": "#f44825",
+			"statusBarItem.remoteForeground": "#ffffff",
+			"statusBarItem.remoteHoverBackground": "#ff5532",
+			"statusBarItem.remoteHoverForeground": "#ffffff90",
+			"statusBar.background": "#e73b18",
+			"statusBar.foreground": "#ffffff",
+			"statusBar.border": "#e73b18",
+			"statusBar.debuggingBackground": "#e73b18",
+			"statusBar.debuggingForeground": "#ffffff",
+			"statusBar.debuggingBorder": "#e73b18",
+			"statusBar.noFolderBackground": "#e73b18",
+			"statusBar.noFolderForeground": "#ffffff",
+			"statusBar.noFolderBorder": "#e73b18",
+			"statusBar.prominentBackground": "#e73b18",
+			"statusBar.prominentForeground": "#ffffff",
+			"statusBar.prominentHoverBackground": "#e73b18",
+			"statusBar.prominentHoverForeground": "#ffffff90",
+			"focusBorder": "#e73b1899",
+			"progressBar.background": "#e73b18",
+			"textLink.foreground": "#ff7b58",
+			"textLink.activeForeground": "#ff8865",
+			"selection.background": "#da2e0b",
+			"list.highlightForeground": "#e73b18",
+			"list.focusAndSelectionOutline": "#e73b1899",
+			"button.background": "#e73b18",
+			"button.foreground": "#ffffff",
+			"button.hoverBackground": "#f44825",
+			"tab.activeBorderTop": "#f44825",
+			"pickerGroup.foreground": "#f44825",
+			"list.activeSelectionBackground": "#e73b184d",
+			"panelTitle.activeBorder": "#f44825",
+			"activityBar.activeBorder": "#e73b18",
+			"activityBarBadge.foreground": "#ffffff",
+			"activityBarBadge.background": "#e73b18"
+		}
+	}
+}
